@@ -1,0 +1,8 @@
+<include>
+  <extension name="inbound_did">
+    <condition field="destination_number" expression="^(.*)$">
+      <action application="set" data="domain_name=$${domain}"/>
+      <action application="log" data="INFO dialed number is [$1]"/>
+    </condition>
+  </extension>
+</include>
