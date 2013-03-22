@@ -21,3 +21,19 @@ Open up the following ports:
 ## Reload SIP Profiles
 
     sofia profile [internal|external] [rescan|reload]
+
+## Install a module
+
+Uncomment the desired module in `path/to/freeswitch/source/modules.conf`
+
+    cd /path/to/freeswitch/source
+    sudo mod_<name>-install
+
+## Required modules
+
+* mod_flite (for TTS)
+* mod_shout (for mp3 playback)
+
+    cd /path/to/freeswitch/source
+    sudo mod_flite-install
+    sudo mod_shout-install
