@@ -33,7 +33,7 @@ Uncomment the desired module in `path/to/freeswitch/source/modules.conf`
 
 * mod_flite (for TTS)
 * mod_shout (for mp3 playback)
+* mod_http_cache (for caching mp3 playback)
 
     cd /path/to/freeswitch/source
-    sudo mod_flite-install
-    sudo mod_shout-install
+    sudo mod_flite-install && sudo mod_shout-install && sudo mod_shout-install
