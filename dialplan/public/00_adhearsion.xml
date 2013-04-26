@@ -1,0 +1,5 @@
+<extension name="Adhearsion">
+  <condition field="destination_number" expression="^2442$">
+    <action application="park"/>
+  </condition>
+</extension>

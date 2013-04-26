@@ -14,12 +14,6 @@
       <node type="allow" cidr="192.168.42.42/32"/>
     </list>
 
-    <list name="smart" default="deny">
-      <node type="allow" cidr="27.109.112.12/32"/>
-      <node type="allow" cidr="27.109.112.13/32"/>
-      <node type="allow" cidr="27.109.112.14/32"/>
-    </list>
-
     <!--
 	This will traverse the directory adding all users 
 	with the cidr= tag to this ACL, when this ACL matches
@@ -31,6 +25,14 @@
       <node type="allow" domain="$${domain}"/>
       <!-- use cidr= if you wish to allow ip ranges to this domains acl. -->
       <!-- <node type="allow" cidr="192.168.0.0/24"/> -->
+
+      <!-- Test Box -->
+      <node type="allow" cidr="27.109.112.25/32"/>
+      
+      <!-- Smart -->
+      <node type="allow" cidr="27.109.112.12/32"/>
+      <node type="allow" cidr="27.109.112.13/32"/>
+      <node type="allow" cidr="27.109.112.14/32"/>
     </list>
 
   </network-lists>
