@@ -19,6 +19,8 @@ Use this branch on a development machine with FreeSwitch installed locally to te
 
 #### Simulating Calls
 
+Sign in to your dev-box FreeSwith as `85510236139@local_ip` using a SIP client such as QuteCom or make a new profile under `directory/default. The sign-in name is important as it will simulate the caller_id for the calling party.
+
 ##### Incoming
 
 Placing a call to 2442 will simulate an incoming call to Chibi. You'll need to have Vibi and Chibi running locally as well to get this to work.
