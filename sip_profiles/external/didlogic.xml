@@ -1,0 +1,9 @@
+<include>
+  <gateway name="didlogic">
+    <param name="username" value="$${didlogic_username}"/>
+    <param name="realm" value="sip.didlogic.net"/>
+    <param name="password" value="$${didlogic_password}"/>
+    <param name="register" value="true"/>
+    <param name="context" value="public"/>
+  </gateway>
+</include> 

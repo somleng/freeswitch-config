@@ -1,4 +1,4 @@
-<extension name="Adhearsion">
+<extension name="TestVPNSip">
   <condition field="destination_number" expression="^2443$">
     <!--Sophea-->
     <!--action application="bridge" data="sofia/internal/85510202487@27.109.112.12"/-->

@@ -1,0 +1,5 @@
+<extension name="TestSipGateway">
+  <condition field="destination_number" expression="^2444$">
+    <action application="bridge" data="sofia/gateway/didlogic/$${test_number}"/>
+  </condition>
+</extension>
