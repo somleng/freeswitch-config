@@ -31,9 +31,23 @@ Placing a call to 2444 will simulate an outgoing call to whoever is in `$${test_
 
 ### production_testing
 
-Use this branch is for testing the production FreeSwitch server from your local FreeSwitch development box. It is set up to simulate incoming and outgoing calls over the VPN from an operator. SIP is set up to use an SDP of `27.109.112.25`. This means that you need to set up a NAT rule to change the source address of all packets going out to the production FreeSwitch server like this: `sudo iptables -t nat -A POSTROUTING -d 54.251.107.12/32 -j SNAT --to-source 27.109.112.25`. Persist your IP table rule with `sudo sh -c "iptables-save > /etc/iptables/rules.v4"` and `sudo apt-get install iptables-persistent`.
+Use this branch is for testing the production FreeSwitch server from your local FreeSwitch development box. It is set up to simulate incoming and outgoing calls over the VPN from an operator. SIP is set up to use an SDP of `27.109.112.25`. This means that you need to set up a NAT rule to change the source address of all packets going out to the production FreeSwitch server. You also need to setup a NAT rule to change the destination address of all packets with the destination of the SDP back to your local IP address. In addition you need to double check the public IP address of your development machine on *both* the FreeSwitch production server and your local development maching in `/etc/ipsec.conf`. See below for more details.
 
-In addition you also need to make sure the VPN is up between the FreeSwitch production server and your development FreeSwitch box. You'll need to verify the public IP in `/etc/ipsec.conf` *both* on the FreeSwitch production server and on your development box. Then make sure the connection is up by running `sudo ipsec auto --up freeswitch` and `ping 54.251.107.12`
+#### Network Setup
+
+Follow these instructions every time since your local ip address is likely to change.
+
+Todo: Write a script to do this automatically
+
+1. Check your local IP address and note it down. `ifconfig`
+2. Check your IP tables. `sudo iptables -t nat -L`
+3. Check that your local IP address matches the IP table rule for changing the destination of packets with the destination address `27.109.112.25`
+4. Modify the rule if required. `sudo iptables -t nat -D PREROUTING -d 27.109.112.25/32 -j NETMAP --to your_old_local_ip/32` and `sudo iptables -t nat -A PREROUTING -d 27.109.112.25/32 -j NETMAP --to your_new_local_ip/32`
+5. Create NAT rule to change source IP for all packets destined for the FreeSwitch production server if required. This should only need to be done once. `sudo iptables -t nat -A POSTROUTING -d 54.251.107.12/32 -j SNAT --to-source 27.109.112.25`
+6. Persist your iptables so they exist after reboot. `sudo apt-get install iptables-persistent` and `sudo sh -c "iptables-save > /etc/iptables/rules.v4"`
+7. Verify the public IP of your development box in `/etc/ipsec.conf` on *both* the FreeSwitch production server and on your development box.
+8. Bring up the VPN connection `sudo /etc/init.d/ipsec restart` and `sudo ipsec auto --up freeswitch`
+9. Verify it works by pinging. From the FreeSwitch production server: `ping 27.109.112.25`. From your development box `ping 54.251.107.12`
 
 #### Simulating Calls
 
@@ -116,6 +130,8 @@ Uncomment the desired module in `path/to/freeswitch/source/modules.conf`
 * mod_flite (for TTS)
 * mod_shout (for mp3 playback)
 * mod_http_cache (for caching mp3 playback)
+
+### Installation
 
     cd /path/to/freeswitch/source
     sudo mod_flite-install && sudo mod_shout-install && sudo mod_shout-install
