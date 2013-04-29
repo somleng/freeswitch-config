@@ -1,0 +1,8 @@
+<extension name="TestChibi">
+  <condition field="destination_number" expression="^2442$"/>
+  <!-- Only allow caller id if logged into sip2sip.info -->
+  <condition field="caller_id_number" expression="^dwilkie$">
+    <action application="export" data="sip_from_uri=$${test_incoming_call_number}@chibitxt.me"/>
+    <action application="park"/>
+  </condition>
+</extension>
