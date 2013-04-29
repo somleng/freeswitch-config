@@ -5,5 +5,7 @@
     <param name="password" value="$${didlogic_password}"/>
     <param name="register" value="true"/>
     <param name="context" value="public"/>
+    <param name="caller-id-in-from" value="true"/>
+    <param name="sip_cid_type" value="none"/>
   </gateway>
 </include> 
