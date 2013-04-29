@@ -33,6 +33,9 @@
       <node type="allow" cidr="27.109.112.12/32"/>
       <node type="allow" cidr="27.109.112.13/32"/>
       <node type="allow" cidr="27.109.112.14/32"/>
+
+      <!-- sip2sip -->
+      <node type="allow" cidr="81.23.228.129/32"/>
     </list>
 
   </network-lists>
