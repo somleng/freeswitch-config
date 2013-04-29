@@ -6,7 +6,9 @@
     <!--action application="bridge" data="sofia/internal/85510202295@27.109.112.12"/-->
     <!--Bora-->
     <!--action application="bridge" data="sofia/internal/85510202464@27.109.112.12"/-->
+    <!--Sopha -->
+    <action application="bridge" data="sofia/internal/85510202428@27.109.112.12"/>
     <!--Me-->
-    <action application="bridge" data="sofia/internal/85510830237@27.109.112.12"/>
+    <!--action application="bridge" data="sofia/internal/85510830237@27.109.112.12"/-->
   </condition>
 </extension>
