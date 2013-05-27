@@ -1,19 +1,19 @@
 <configuration name="xml_cdr.conf" description="XML CDR CURL logger">
   <settings>
     <!-- the url to post to if blank web posting is disabled  -->
-    <!-- <param name="url" value="http://localhost/cdr_curl/post.php"/> -->
+    <param name="url" value="$${cdr_host}"/>
 
     <!-- optional: credentials to send to web server -->
-    <!--    <param name="cred" value="user:pass"/> -->
+    <param name="cred" value="$${cdr_credentials}"/>
 
     <!-- the total number of retries (not counting the first 'try') to post to webserver incase of failure -->
-    <!-- <param name="retries" value="2"/> -->
+    <param name="retries" value="5"/>
 
     <!-- delay between retries in seconds, default is 5 seconds -->
     <!-- <param name="delay" value="1"/> -->
 
     <!-- Log via http and on disk, default is false -->
-    <!-- <param name="log-http-and-disk" value="true"/> -->
+    <param name="log-http-and-disk" value="true"/>
 
     <!-- optional: if not present we do not log every record to disk -->
     <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank value will default to ${prefix}/logs/xml_cdr -->
