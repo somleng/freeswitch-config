@@ -164,7 +164,11 @@
        If unspecified, the bind_server_ip value is used.
        Used by: sofia.conf.xml dingaling.conf.xml
   -->
-  <X-PRE-PROCESS cmd="set" data="external_rtp_ip=54.251.107.12"/>
+
+  <!-- RTP IP for VPN connection -->
+  <!-- <X-PRE-PROCESS cmd="set" data="external_rtp_ip=54.251.107.12"/> -->
+  <!-- RTP IP public connection -->
+  <X-PRE-PROCESS cmd="set" data="external_rtp_ip=54.251.107.233"/>
 
   <!-- external_sip_ip
       Used as the public IP address for SDP.
@@ -177,7 +181,11 @@
        If unspecified, the bind_server_ip value is used.
        Used by: sofia.conf.xml dingaling.conf.xml
   -->
-  <X-PRE-PROCESS cmd="set" data="external_sip_ip=54.251.107.12"/>
+
+  <!-- SIP IP for VPN connection -->
+  <!-- <X-PRE-PROCESS cmd="set" data="external_sip_ip=54.251.107.233"/> -->
+  <!-- SIP IP public connection -->
+  <X-PRE-PROCESS cmd="set" data="external_sip_ip=54.251.107.233"/>
 
   <!-- unroll-loops
        Used to turn on sip loopback unrolling.

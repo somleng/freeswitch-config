@@ -81,11 +81,15 @@ The master branch contains the configuration necessary for the production FreeSw
 
 ### Smart
 
-#### External IP
+#### External IP (VPN)
 
 27.109.115.201
 
-### Natted SIP IP's
+#### Public MSC IP
+
+27.109.112.80
+
+#### Natted SIP IP's (No longer used)
 
 27.109.112.12, 27.109.112.13, 27.109.112.14
 
