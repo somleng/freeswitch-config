@@ -30,7 +30,6 @@
       <node type="allow" cidr="27.109.112.25/32"/>
       
       <!-- Smart -->
-      <node type="allow" cidr="27.109.112.12/32"/>
       <node type="allow" cidr="27.109.112.80/32"/>
 
       <!-- sip2sip -->
