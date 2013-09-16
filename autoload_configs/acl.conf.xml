@@ -29,6 +29,9 @@
       <!-- Test Box -->
       <node type="allow" cidr="27.109.112.25/32"/>
       
+      <!-- qb -->
+      <node type="allow" cidr="117.55.252.146/32"/>
+
       <!-- Smart -->
       <node type="allow" cidr="27.109.112.80/32"/>
 
