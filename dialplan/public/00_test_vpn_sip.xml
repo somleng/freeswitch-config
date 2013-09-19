@@ -10,6 +10,6 @@
     <!-- <action application="bridge" data="sofia/internal/85510202428@27.109.112.80"/> -->
     <!--Me-->
     <!--action application="bridge" data="sofia/internal/85510830237@27.109.112.80"/-->
-    <action application="bridge" data="sofia/internal/85513827719@27.109.112.80"/>
+    <action application="bridge" data="sofia/internal/85513827719@117.55.252.146"/>
   </condition>
 </extension>
