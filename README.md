@@ -93,6 +93,12 @@ The master branch contains the configuration necessary for the production FreeSw
 
 27.109.112.12, 27.109.112.13, 27.109.112.14
 
+### qb
+
+#### Public MSC IP
+
+117.55.252.146
+
 ### Development Box
 
 #### External IP
