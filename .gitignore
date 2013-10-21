@@ -1,2 +1,3 @@
 passwords.xml
 freeswitch.serial
+dialplan/public/000_chibi_override.xml
