@@ -1,0 +1,7 @@
+<!-- This file overrides Chibi and can be used for testing outbound dials by bridging them directly -->
+<extension name="chibi-override">
+  <condition field="destination_number" expression="^(?:855383838380)$"/>
+  <condition field="caller_id_number" expression="^\+?\d+$">
+    <action application="bridge" data="sofia/internal/0388807777@103.5.126.33"/>
+  </condition>
+</extension>

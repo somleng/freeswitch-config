@@ -1,6 +1,6 @@
 <!-- This is the main Gateway to Chibi. Ensure that it is secure by restricting ips in the ACL and using conditions -->
 <extension name="Chibi">
-  <condition field="destination_number" expression="^(?:2441|85513300324)$"/>
+  <condition field="destination_number" expression="^(?:2441|85513300324|855383838380)$"/>
   <condition field="caller_id_number" expression="^\+?\d+$">
     <action application="park"/>
   </condition>

@@ -1,7 +1,6 @@
-freeswitch-config
-=================
+# freeswitch-config
 
-Freeswitch configuration files
+Freeswitch configuration files for Chibi
 
 ## Version Control
 
@@ -99,6 +98,12 @@ The master branch contains the configuration necessary for the production FreeSw
 
 117.55.252.146
 
+### CooTel
+
+#### Public MSC IP
+
+103.5.126.33
+
 ### Development Box
 
 #### External IP
@@ -140,6 +145,12 @@ Uncomment the desired module in `path/to/freeswitch/source/modules.conf`
 * mod_flite (for TTS)
 * mod_shout (for mp3 playback)
 * mod_http_cache (for caching mp3 playback)
+* mod_com_g729 (required Codec for CooTel)
+
+### Required Licences
+
+mod_com_g729 requires one licence per channel. We have currently purchased 5 licences which should allow 5 simultanious calls using G.729.
+Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for details on how to purchase additional licences. Note that each licence costs $10.
 
 ### Installation
 
