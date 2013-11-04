@@ -8,8 +8,9 @@
     <!--action application="bridge" data="sofia/internal/85510202464@27.109.112.80"/-->
     <!--Sopha -->
     <!-- <action application="bridge" data="sofia/internal/85510202428@27.109.112.80"/> -->
-    <!--Me-->
+    <!--Me Smart -->
     <!--action application="bridge" data="sofia/internal/85510830237@27.109.112.80"/-->
-    <action application="bridge" data="sofia/internal/85513827719@117.55.252.146"/>
+    <!--Me CooTel-->
+    <action application="bridge" data="sofia/internal/855388807777@103.5.126.33"/>
   </condition>
 </extension>
