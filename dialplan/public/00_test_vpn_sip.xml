@@ -11,6 +11,6 @@
     <!--Me Smart -->
     <!--action application="bridge" data="sofia/internal/85510830237@27.109.112.80"/-->
     <!--Me CooTel-->
-    <action application="bridge" data="sofia/internal/855388807777@103.5.126.33"/>
+    <action application="bridge" data="sofia/internal/855388807777@103.5.126.165"/>
   </condition>
 </extension>

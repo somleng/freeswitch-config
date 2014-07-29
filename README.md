@@ -48,7 +48,7 @@ The master branch contains the configuration necessary for the production FreeSw
 
 #### Public MSC IP
 
-103.5.126.33
+103.5.126.165
 
 ## Firewall
 

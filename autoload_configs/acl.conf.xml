@@ -36,7 +36,7 @@
       <node type="allow" cidr="27.109.112.80/32"/>
 
       <!-- CooTel -->
-      <node type="allow" cidr="103.5.126.33/32"/>
+      <node type="allow" cidr="103.5.126.165/32"/>
 
       <!-- sip2sip -->
       <node type="allow" cidr="81.23.228.129/32"/>
