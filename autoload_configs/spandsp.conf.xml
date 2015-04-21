@@ -14,6 +14,8 @@
 
 -->
       <param name="total-modems" value="0"/>
+      <!-- Change the directory of the devices created from /dev. Needed if FS runs as non-root -->
+      <!-- <param name="directory" value="/dev/FS"/> -->
 
       <!-- Default context and dialplan to use on inbound calls from the modems -->
       <param name="context" value="default"/>
@@ -30,8 +32,11 @@
 	<param name="ident"		value="SpanDSP Fax Ident"/>
 	<param name="header"		value="SpanDSP Fax Header"/>
 
-	<param name="spool-dir"		value="/tmp"/>
+	<param name="spool-dir"		value="$${temp_dir}"/>
 	<param name="file-prefix"	value="faxrx"/>
+	<!-- How many packets to process before sending the re-invite on tx/rx -->
+	<!-- <param name="t38-rx-reinvite-packet-count" value="50"/> -->
+	<!-- <param name="t38-tx-reinvite-packet-count" value="100"/> -->
     </fax-settings>
 
     <descriptors>

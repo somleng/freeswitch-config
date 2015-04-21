@@ -13,7 +13,7 @@
 <include>
   <context name="skinny-patterns">
     <!--
-    Wait 10 seconds for another digit by default
+    Wait 10 seconds for another digit by default, if data not specified, uses profile default
     -->
     <extension name="Default">
       <condition>

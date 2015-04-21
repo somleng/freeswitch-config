@@ -126,6 +126,14 @@
       <condition field="${call_debug}" expression="^true$" break="never">
 	<action application="info"/>
       </condition>
+
+      <condition field="${default_password}" expression="^1234$" break="never">
+	<action application="log" data="CRIT WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING "/>
+	<action application="log" data="CRIT Open $${conf_dir}/vars.xml and change the default_password."/>
+	<action application="log" data="CRIT Once changed type 'reloadxml' at the console."/>
+	<action application="log" data="CRIT WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING "/>
+	<action application="sleep" data="10000"/>
+      </condition>
       <!--
 	  This is an example of how to auto detect if telephone-event is missing and activate inband detection 
       -->
@@ -135,10 +143,10 @@
 	<anti-action application="start_dtmf"/>
       </condition>
       -->
-      <condition field="${sip_has_crypto}" expression="^(AES_CM_128_HMAC_SHA1_32|AES_CM_128_HMAC_SHA1_80)$" break="never">
-	<action application="set" data="sip_secure_media=true"/>
+      <condition field="${rtp_has_crypto}" expression="^($${rtp_sdes_suites})$" break="never">
+	<action application="set" data="rtp_secure_media=true"/>
 	<!-- Offer SRTP on outbound legs if we have it on inbound. -->
-	<!-- <action application="export" data="sip_secure_media=true"/> -->
+	<!-- <action application="export" data="rtp_secure_media=true"/> -->
       </condition>
 
       <!--
@@ -147,9 +155,9 @@
 	-->
       <condition field="${endpoint_disposition}" expression="^(DELAYED NEGOTIATION)"/>
       <condition field="${switch_r_sdp}" expression="(AES_CM_128_HMAC_SHA1_32|AES_CM_128_HMAC_SHA1_80)" break="never">
-	<action application="set" data="sip_secure_media=true"/>
+	<action application="set" data="rtp_secure_media=true"/>
 	<!-- Offer SRTP on outbound legs if we have it on inbound. -->
-	<!-- <action application="export" data="sip_secure_media=true"/> -->
+	<!-- <action application="export" data="rtp_secure_media=true"/> -->
       </condition>
 
 
@@ -274,7 +282,7 @@
 	<action application="set" data="called_party_callgroup=${user_data(${dialed_extension}@${domain_name} var callgroup)}"/>
 	<action application="hash" data="insert/${domain_name}-last_dial_ext/${called_party_callgroup}/${uuid}"/>
 	<action application="hash" data="insert/${domain_name}-last_dial_ext/global/${uuid}"/>
-	<!--<action application="export" data="nolocal:sip_secure_media=${user_data(${dialed_extension}@${domain_name} var sip_secure_media)}"/>-->
+	<!--<action application="export" data="nolocal:rtp_secure_media=${user_data(${dialed_extension}@${domain_name} var rtp_secure_media)}"/>-->
 	<action application="hash" data="insert/${domain_name}-last_dial/${called_party_callgroup}/${uuid}"/>
 	<action application="bridge" data="user/${dialed_extension}@${domain_name}"/>
 	<action application="answer"/>
@@ -500,7 +508,7 @@
 	 After call is retrieved, park extension is free for another call.
     -->
     <extension name="valet_park">
-      <condition field="destination_number" expression="^(60\d[1-9])$">
+      <condition field="destination_number" expression="^((?!6000)60\d{2})$">
 	<action application="answer"/>
 	<action application="valet_park" data="valet_parking_lot $1"/>
       </condition>
@@ -590,14 +598,14 @@
       <condition field="destination_number" expression="^9178$">
 	<action application="answer" />
 	<action application="playback" data="silence_stream://2000"/>
-	<action application="rxfax" data="/tmp/rxfax.tif"/>
+	<action application="rxfax" data="$${temp_dir}/rxfax.tif"/>
 	<action application="hangup"/>
       </condition>
     </extension>
 
     <extension name="fax_transmit">
       <condition field="destination_number" expression="^9179$">
-	<action application="txfax" data="/tmp/txfax.tif"/>
+	<action application="txfax" data="$${temp_dir}/txfax.tif"/>
 	<action application="hangup"/>
       </condition>
     </extension>
@@ -667,14 +675,14 @@
     <extension name="video_record">
       <condition field="destination_number" expression="^9193$">
 	<action application="answer"/>
-	<action application="record_fsv" data="/tmp/testrecord.fsv"/>
+	<action application="record_fsv" data="$${temp_dir}/testrecord.fsv"/>
       </condition>
     </extension>
 
     <extension name="video_playback">
       <condition field="destination_number" expression="^9194$">
 	<action application="answer"/>
-	<action application="play_fsv" data="/tmp/testrecord.fsv"/>
+	<action application="play_fsv" data="$${temp_dir}/testrecord.fsv"/>
       </condition>
     </extension>
 
@@ -695,14 +703,14 @@
     <extension name="milliwatt">
       <condition field="destination_number" expression="^9197$">
 	<action application="answer"/>
-	<action application="playback" data="tone_stream://%(251,0,1004);loops=-1"/>
+	<action application="playback" data="{loops=-1}tone_stream://%(251,0,1004)"/>
       </condition>
     </extension>
 
     <extension name="tone_stream">
       <condition field="destination_number" expression="^9198$">
 	<action application="answer"/>
-	<action application="playback" data="tone_stream://path=${base_dir}/conf/tetris.ttml;loops=10"/>
+	<action application="playback" data="{loops=10}tone_stream://path=${conf_dir}/tetris.ttml"/>
       </condition>
     </extension>
 
@@ -720,7 +728,7 @@
 
     <extension name="hold_music">
       <condition field="destination_number" expression="^9664$"/>
-      <condition field="${sip_has_crypto}" expression="^(AES_CM_128_HMAC_SHA1_32|AES_CM_128_HMAC_SHA1_80)$">
+      <condition field="${rtp_has_crypto}" expression="^(AES_CM_128_HMAC_SHA1_32|AES_CM_128_HMAC_SHA1_80)$">
 	<action application="answer"/>
 	<action application="execute_extension" data="is_secure XML features"/>
 	<action application="playback" data="$${hold_music}"/>

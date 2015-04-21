@@ -36,7 +36,7 @@
       <!--Use the callerid of an inbound call in the from field on outbound calls via this gateway -->
       <!--<param name="caller-id-in-from" value="false"/>-->
       <!--extra sip params to send in the contact-->
-      <!--<param name="contact-params" value="tport=tcp"/>-->
+      <!--<param name="contact-params" value=""/>-->
       <!--send an options ping every x seconds, failure will unregister and/or mark it down-->
       <!--<param name="ping" value="25"/>-->
       <!--</gateway>-->
@@ -62,8 +62,8 @@
       <variable name="effective_caller_id_number" value="1000"/>
       <!-- Don't write a CDR if this is false valid values are: true, false, a_leg and b_leg -->
       <variable name="process_cdr" value="true"/>
-      <!-- sip_secure_media will offer mandatory SRTP on invite AES_CM_128_HMAC_SHA1_32, AES_CM_128_HMAC_SHA1_80 or true-->
-      <variable name="sip_secure_media" value="true"/>
+      <!-- rtp_secure_media will offer mandatory SRTP on invite AES_CM_128_HMAC_SHA1_32, AES_CM_128_HMAC_SHA1_80 or true-->
+      <variable name="rtp_secure_media" value="true"/>
       <!-- limit the max number of outgoing calls for this user -->
       <!--<variable name="max_calls" value="2"/>-->
 

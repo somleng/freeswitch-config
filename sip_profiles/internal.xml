@@ -15,7 +15,6 @@
   </aliases>
   <!-- Outbound Registrations -->
   <gateways>
-    <X-PRE-PROCESS cmd="include" data="internal/*.xml"/>
   </gateways>
 
   <domains>
@@ -37,12 +36,16 @@
         when you press the hold button.
     -->
     <!--<param name="media-option" value="resume-media-on-hold"/> -->
+
     <!--
         This will allow a call after an attended transfer go back to
         bypass media after an attended transfer.
     -->
     <!--<param name="media-option" value="bypass-media-after-att-xfer"/>-->
+
+    <!-- Can be set to "_undef_" to remove the User-Agent header -->
     <!-- <param name="user-agent-string" value="FreeSWITCH Rocks!"/> -->
+
     <param name="debug" value="0"/>
     <!-- If you want FreeSWITCH to shutdown if this profile fails to load, uncomment the next line. -->
     <!-- <param name="shutdown-on-fail" value="true"/> -->
@@ -96,6 +99,7 @@
     <param name="sip-ip" value="$${local_ip_v4}"/>
     <param name="hold-music" value="$${hold_music}"/>
     <param name="apply-nat-acl" value="nat.auto"/>
+
 
     <!-- (default true) set to false if you do not wish to have called party info in 1XX responses -->
     <!-- <param name="cid-in-1xx" value="false"/> -->
@@ -177,6 +181,13 @@
     <!-- if you want to send any special bind params of your own -->
     <!--<param name="bind-params" value="transport=udp"/>-->
     <!--<param name="unregister-on-options-fail" value="true"/>-->
+    <!-- Send an OPTIONS packet to all registered endpoints -->
+    <!--<param name="all-reg-options-ping" value="true"/>-->
+    <!-- Send an OPTIONS packet to NATed registered endpoints. Can be 'true' or 'udp-only'. -->
+    <!--<param name="nat-options-ping" value="true"/>-->
+    <!--<param name="sip-options-respond-503-on-busy" value="true"/>-->
+    <!--<param name="sip-messages-respond-200-ok" value="true"/>-->
+    <!--<param name="sip-subscribe-respond-200-ok" value="true"/>-->
 
     <!-- TLS: disabled by default, set to "true" to enable -->
     <param name="tls" value="$${internal_ssl_enable}"/>
@@ -187,7 +198,7 @@
     <!-- Port to listen on for TLS requests. (5061 will be used if unspecified) -->
     <param name="tls-sip-port" value="$${internal_tls_port}"/>
     <!-- Location of the agent.pem and cafile.pem ssl certificates (needed for TLS server) -->
-    <param name="tls-cert-dir" value="$${internal_ssl_dir}"/>
+    <!--<param name="tls-cert-dir" value=""/>-->
     <!-- Optionally set the passphrase password used by openSSL to encrypt/decrypt TLS private key files -->
     <param name="tls-passphrase" value=""/>
     <!-- Verify the date on TLS certificates -->
@@ -199,8 +210,11 @@
     <param name="tls-verify-depth" value="2"/>
     <!-- If the tls-verify-policy is set to subjects_all or subjects_in this sets which subjects are allowed, multiple subjects can be split with a '|' pipe -->
     <param name="tls-verify-in-subjects" value=""/>
-    <!-- TLS version ("sslv23" (default), "tlsv1"). NOTE: Phones may not work with TLSv1 -->
+    <!-- TLS version default: tlsv1,tlsv1.1,tlsv1.2 -->
     <param name="tls-version" value="$${sip_tls_version}"/>
+
+    <!-- TLS ciphers default: ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH  -->
+    <param name="tls-ciphers" value="$${sip_tls_ciphers}"/>
 
     <!-- turn on auto-flush during bridge (skip timer sleep when the socket already has data)
          (reduces delay on latent connections default true, must be disabled explicitly)-->
@@ -267,6 +281,8 @@
          auto                  - Use guessed ip.
          auto-nat              - Use ip learned from NAT-PMP or UPNP
     -->
+    <!-- <param name="ext-rtp-ip" value="auto-nat"/> -->
+    <!-- <param name="ext-sip-ip" value="auto-nat"/> -->
     <param name="ext-rtp-ip" value="$${external_rtp_ip}"/>
     <param name="ext-sip-ip" value="$${external_sip_ip}"/>
 
@@ -290,7 +306,19 @@
     <!--all inbound reg will stored in the db using this domain -->
     <param name="force-register-db-domain" value="$${domain}"/>
 
+
+    <!-- uncomment for sip over websocket support -->
+    <!--<param name="ws-binding"  value=":5066"/>-->
+
+    <!-- uncomment for sip over secure websocket support -->
+    <!-- You need wss.pem in $${certs_dir} for wss -->
+    <!--<param name="wss-binding" value=":7443"/>-->
+    
+
     <!--<param name="delete-subs-on-register" value="false"/>-->
+
+    <!-- launch a new thread to process each new inbound register when using heavier backends -->
+    <!-- <param name="inbound-reg-in-new-thread" value="true"/> -->
 
     <!-- enable rtcp on every channel also can be done per leg basis with rtcp_audio_interval_msec variable set to passthru to pass it across a call-->
     <!--<param name="rtcp-audio-interval-msec" value="5000"/>-->
@@ -298,6 +326,10 @@
 
     <!--force suscription expires to a lower value than requested-->
     <!--<param name="force-subscription-expires" value="60"/>-->
+
+    <!-- add a random deviation to the expires value of the 202 Accepted -->
+    <!--<param name="sip-subscription-max-deviation" value="120"/>-->
+
     <!-- disable register and transfer which may be undesirable in a public switch -->
     <!--<param name="disable-transfer" value="true"/>-->
     <!--<param name="disable-register" value="true"/>-->

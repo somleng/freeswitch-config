@@ -1,16 +1,24 @@
-<configuration name="xml_cdr.conf" description="XML CDR CURL logger">
+<configuration name="format_cdr.conf" description="Multi Format CDR CURL logger">
+
+ <!-- You can have multiple profiles, to allow logging to both json and cdr simultaneously, or to 
+        different paths or servers with different settings, just be sure to use different name for
+        each profile. -->
+ <profiles>
+
+ <profile name="default">
   <settings>
+    <!-- the format of data to send, defaults to xml -->
+    <!-- <param name="format" value="json|xml"/> -->
+    <param name="format" value="xml"/>
+
     <!-- the url to post to if blank web posting is disabled  -->
     <!-- <param name="url" value="http://localhost/cdr_curl/post.php"/> -->
-    <param name="url" value="$${cdr_host}"/>
 
     <!-- optional: credentials to send to web server -->
     <!--    <param name="cred" value="user:pass"/> -->
-    <param name="cred" value="$${cdr_credentials}"/>
 
     <!-- the total number of retries (not counting the first 'try') to post to webserver incase of failure -->
     <!-- <param name="retries" value="2"/> -->
-    <param name="retries" value="5"/>
 
     <!-- delay between retries in seconds, default is 5 seconds -->
     <!-- <param name="delay" value="1"/> -->
@@ -19,12 +27,12 @@
     <!-- <param name="log-http-and-disk" value="true"/> -->
 
     <!-- optional: if not present we do not log every record to disk -->
-    <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank value will default to ${prefix}/logs/xml_cdr -->
+    <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank value will default to ${prefix}/logs/format_cdr -->
     <param name="log-dir" value=""/>
 
     <!-- optional: if not present we do log the b leg -->
     <!-- true or false if we should create a cdr for the b leg of a call-->
-    <param name="log-b-leg" value="true"/>
+    <param name="log-b-leg" value="false"/>
     
     <!-- optional: if not present, all filenames are the uuid of the call -->
     <!-- true or false if a leg files are prefixed "a_" -->
@@ -37,7 +45,7 @@
     <!--<param name="disable-100-continue" value="true"/>--> 
     
     <!-- optional: full path to the error log dir for failed web posts if not specified its the same as log-dir -->
-    <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/xml_cdr -->
+    <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/format_cdr -->
     <!-- <param name="err-log-dir" value="$${temp_dir}"/> -->
 
     <!-- which auhtentification scheme to use. Supported values are: basic, digest, NTLM, GSS-NEGOTIATE or "any" for automatic detection -->
@@ -69,6 +77,12 @@
     <!-- <param name="ssl-version" value="TLSv1"/> -->
 
     <!-- optional: enables cookies and stores them in the specified file. -->
-    <!-- <param name="cookie-file" value="$${run_dir}/mod_xml_cdr-cookie.txt"/> -->
+    <!-- <param name="cookie-file" value="/$${temp_dir}/cookie-mod_format_cdr_curl.txt"/> -->
+
+    <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->
+    <param name="encode-values" value="true"/>
+
   </settings>
+ </profile>
+ </profiles>
 </configuration>
