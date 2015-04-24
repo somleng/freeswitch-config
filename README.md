@@ -1,54 +1,94 @@
-# freeswitch-config (Production)
+# freeswitch-config
 
-Freeswitch configuration files for Chibi in production
+Freeswitch config files for Chibi
 
-## Version Control
+## Servers
 
-Make sure you're on the production branch
+### Production
+
+freeswitch.chibitxt.me
+
+### Staging
+
+freeswitch-staging.chibitxt.me
+
+## Branches
+
+### master
+
+These are the config files needed on the Production and Staging Servers
+
+### production_testing
+
+This branch contains the config files needed for your develoment machine
+
+## Installation
+
+### Installing Freeswitch
+
+Use the [pre-compiled Debian Package](https://freeswitch.org/confluence/display/FREESWITCH/Debian).
+
+### Installing Required Modules
+
+* mod_shout (required for mp3 playback)
+  * `sudo apt-get install freeswitch-mod-shout`
+* mod_http_cache (for caching mp3 playback)
+  * `sudo apt-get install freeswitch-mod-http-cache`
+* mod_com_g729 (required Codec for CooTel)
+  * `sudo apt-get install freeswitch-mod-g729`
+* mod_rayo (Required for Adhearsion)
+  * `sudo apt-get install freeswitch-mod-rayo`
+
+### Required Licences
+
+mod_g729 requires one licence per channel. We have currently purchased 5 licences which should allow 5 simultanious calls using G.729.
+Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for details on how to purchase additional licences. Note that each licence costs $10.
+
+### Configuration
+
+#### Installing Configuration
 
 ```
-sudo -u freeswitch git checkout master
+cd ~
+git clone git@github.com:dwilkie/freeswitch-config.git
+git checkout <master_or_production_testing>
+sudo cp -a freeswitch_config /etc/freeswitch
+sudo chown -R freeswitch:freeswitch /etc/production
 ```
 
-The master branch contains the configuration necessary for the production FreeSwitch server.
+Don't forget to put the correct values in `/etc/freeswitch/secrets.xml`
+
+#### Restart FreeSwitch
+
+```
+sudo service freeswitch restart
+```
 
 ## IP addresses
 
-### FreeSwitch Production Server
-
-#### External IP
-
-54.251.107.233
-
-#### Natted SIP IP
-
-54.251.107.12
-
 ### Smart
-
-#### External IP (VPN)
-
-27.109.115.201
 
 #### Public MSC IP
 
+```
 27.109.112.80
-
-#### Natted SIP IP's (No longer used)
-
-27.109.112.12, 27.109.112.13, 27.109.112.14
+```
 
 ### qb
 
 #### Public MSC IP
 
+```
 117.55.252.146
+```
 
 ### CooTel
 
 #### Public MSC IP
 
+```
 103.5.126.165
+```
 
 ## Firewall
 
@@ -65,30 +105,10 @@ Open up the following ports:
     tcp     8000
     udp     8000
 
-## Reload SIP Profiles
+### Useful CLI Commands
 
-    sofia profile [internal|external] [rescan|reload]
+### Reload SIP Profiles
 
-## Install a module
-
-Uncomment the desired module in `path/to/freeswitch/source/modules.conf`
-
-    cd /path/to/freeswitch/source
-    sudo mod_<name>-install
-
-## Required modules
-
-* mod_flite (for TTS)
-* mod_shout (for mp3 playback)
-* mod_http_cache (for caching mp3 playback)
-* mod_com_g729 (required Codec for CooTel)
-
-### Required Licences
-
-mod_com_g729 requires one licence per channel. We have currently purchased 5 licences which should allow 5 simultanious calls using G.729.
-Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for details on how to purchase additional licences. Note that each licence costs $10.
-
-### Installation
-
-    cd /path/to/freeswitch/source
-    sudo mod_flite-install && sudo mod_shout-install && sudo mod_shout-install
+```
+sofia profile [internal|external] [rescan|reload]
+```
