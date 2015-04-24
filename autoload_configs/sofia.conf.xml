@@ -1,9 +1,72 @@
-<configuration name="sofia.conf" description="sofia Endpoint">
-  <global_settings>
-    <param name="log-level" value="0"/>
-    <param name="debug-presence" value="0"/>
-  </global_settings>
+<configuration name="sofia.conf">
   <profiles>
-    <X-PRE-PROCESS cmd="include" data="../sip_profiles/*.xml"/>
+    <profile name="external">
+      <settings>
+        <param name="ext-rtp-ip" value="$${external_ip}"/>
+        <param name="ext-sip-ip" value="$${external_ip}"/>
+
+        <param name="rtp-ip" value="$${local_ip_v4}"/>
+        <param name="sip-ip" value="$${local_ip_v4}"/>
+
+        <param name="bind-params" value="transport=udp"/>
+
+        <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
+        <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
+
+        <param name="context" value="default"/>
+        <param name="disable-register" value="true"/>
+        <param name="rtp-timer-name" value="soft"/>
+      </settings>
+
+      <gateways>
+        <gateway name="didlogic">
+          <param name="username" value="$${didlogic_username}"/>
+          <param name="realm" value="sip.didlogic.net"/>
+          <param name="password" value="$${didlogic_password}"/>
+          <param name="register" value="true"/>
+          <param name="context" value="public"/>
+          <param name="caller-id-in-from" value="true"/>
+          <param name="sip_cid_type" value="none"/>
+        </gateway>
+      </gateways>
+    </profile>
+
+    <profile name="lan">
+      <settings>
+        <param name="ext-rtp-ip" value="$${local_ip_v4}"/>
+        <param name="ext-sip-ip" value="$${local_ip_v4}"/>
+
+        <param name="rtp-ip" value="$${local_ip_v4}"/>
+        <param name="sip-ip" value="$${local_ip_v4}"/>
+
+        <param name="bind-params" value="transport=udp"/>
+
+        <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
+        <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
+
+        <param name="context" value="default"/>
+        <param name="disable-register" value="true"/>
+        <param name="rtp-timer-name" value="soft"/>
+      </settings>
+    </profile>
+
+    <profile name="localhost">
+      <settings>
+        <param name="ext-rtp-ip" value="127.0.0.1"/>
+        <param name="ext-sip-ip" value="127.0.0.1"/>
+
+        <param name="rtp-ip" value="127.0.0.1"/>
+        <param name="sip-ip" value="127.0.0.1"/>
+
+        <param name="bind-params" value="transport=udp"/>
+
+        <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
+        <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
+
+        <param name="context" value="default"/>
+        <param name="disable-register" value="true"/>
+        <param name="rtp-timer-name" value="soft"/>
+      </settings>
+    </profile>
   </profiles>
 </configuration>

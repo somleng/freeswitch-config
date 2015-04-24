@@ -11,6 +11,7 @@
     <load module="mod_dptools"/>
     <load module="mod_dialplan_xml"/>
     <load module="mod_sndfile"/>
+    <load module="mod_native_file"/>
     <load module="mod_http_cache"/>
     <load module="mod_g729"/>
     <load module="mod_shout"/>
