@@ -53,7 +53,7 @@ cd ~
 git clone git@github.com:dwilkie/freeswitch-config.git
 git checkout <master_or_production_testing>
 sudo cp -a freeswitch_config /etc/freeswitch
-sudo chown -R freeswitch:freeswitch /etc/production
+sudo chown -R freeswitch:freeswitch /etc/freeswitch
 ```
 
 Don't forget to put the correct values in `/etc/freeswitch/secrets.xml`
