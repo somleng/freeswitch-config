@@ -13,6 +13,7 @@
     <load module="mod_sndfile"/>
     <load module="mod_native_file"/>
     <load module="mod_http_cache"/>
+    <load module="mod_httapi"/>
     <load module="mod_g729"/>
     <load module="mod_shout"/>
     <load module="mod_rayo"/>
