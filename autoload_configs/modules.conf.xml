@@ -1,6 +1,6 @@
 <configuration name="modules.conf" description="Modules">
   <modules>
-    
+
     <!-- Loggers (I'd load these first) -->
     <load module="mod_console"/>
     <!-- <load module="mod_graylog2"/> -->
@@ -123,7 +123,7 @@
     <!-- <load module="mod_cepstral"/> -->
     <!-- <load module="mod_tts_commandline"/> -->
     <!-- <load module="mod_rss"/> -->
-    
+
     <!-- Say -->
     <load module="mod_say_en"/>
     <!-- <load module="mod_say_ru"/> -->
@@ -134,5 +134,7 @@
     <!--<load module="mod_nibblebill"/>-->
     <!--<load module="mod_callcenter"/>-->
 
+    <load module="mod_rayo"/>
+    <load module="mod_ssml"/>
   </modules>
 </configuration>
