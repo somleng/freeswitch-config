@@ -7,13 +7,4 @@
     <listen type="c2s" port="$${rayo_port}" address="$${rayo_ip}" acl=""/>
     <users><user name="$${rayo_user}" password="$${rayo_password}"/></users>
   </domain>
-
-  <dial-gateways>
-    <dial-gateway uriprefix="default" dialprefix="sofia/gateway/outbound/" strip="0"/>
-    <dial-gateway uriprefix="sip:" dialprefix="sofia/external/" strip="0"/>
-    <dial-gateway uriprefix="tel:" dialprefix="sofia/gateway/outbound/" strip="4"/>
-    <dial-gateway uriprefix="user/" dialprefix="" strip=""/>
-    <dial-gateway uriprefix="sofia/" dialprefix="" strip=""/>
-    <dial-gateway uriprefix="loopback/" dialprefix="" strip=""/>
-  </dial-gateways>
 </configuration>
