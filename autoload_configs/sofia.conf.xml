@@ -22,7 +22,7 @@
       <gateways>
         <gateway name="didlogic">
           <param name="username" value="$${didlogic_username}"/>
-          <param name="realm" value="sip.didlogic.net"/>
+          <param name="realm" value="$${didlogic_realm}"/>
           <param name="password" value="$${didlogic_password}"/>
           <param name="register" value="true"/>
           <param name="context" value="public"/>
