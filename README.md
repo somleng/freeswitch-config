@@ -38,6 +38,8 @@ Use the [pre-compiled Debian Package](https://freeswitch.org/confluence/display/
   * `sudo apt-get install freeswitch-mod-g729`
 * mod_rayo (Required for Adhearsion)
   * `sudo apt-get install freeswitch-mod-rayo`
+* mod_xml_cdr (Required for posting CDR)
+  * `sudo apt-get install freeswitch-mod-xml-cdr`
 
 ### Required Licences
 
