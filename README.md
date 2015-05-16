@@ -8,10 +8,6 @@ Freeswitch config files for Chibi
 
 freeswitch.chibitxt.me
 
-### Staging
-
-freeswitch-staging.chibitxt.me
-
 ## Branches
 
 ### master
@@ -34,8 +30,6 @@ Use the [pre-compiled Debian Package](https://freeswitch.org/confluence/display/
   * `sudo apt-get install freeswitch-mod-shout`
 * mod_http_cache (for caching mp3 playback)
   * `sudo apt-get install freeswitch-mod-http-cache`
-* mod_com_g729 (required Codec for CooTel)
-  * `sudo apt-get install freeswitch-mod-g729`
 * mod_rayo (Required for Adhearsion)
   * `sudo apt-get install freeswitch-mod-rayo`
 * mod_xml_cdr (Required for posting CDR)
@@ -45,6 +39,20 @@ Use the [pre-compiled Debian Package](https://freeswitch.org/confluence/display/
 
 mod_g729 requires one licence per channel. We have currently purchased 5 licences which should allow 5 simultanious calls using G.729.
 Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for details on how to purchase additional licences. Note that each licence costs $10.
+
+#### mod G729
+
+sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
+
+##### Installation
+
+Adapted from: (http://files.freeswitch.org/g729/INSTALL)[INSTALL]
+
+1. cd /src
+2. wget http://files.freeswitch.org/g729/fs-latest-installer
+3. chmod u+x fs-latest-installer
+4. sudo ./fs-latest-installer
+5. sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
 
 ### Configuration
 
