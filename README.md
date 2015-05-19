@@ -51,8 +51,7 @@ Adapted from: (http://files.freeswitch.org/g729/INSTALL)[INSTALL]
 1. cd /src
 2. wget http://files.freeswitch.org/g729/fs-latest-installer
 3. chmod u+x fs-latest-installer
-4. sudo ./fs-latest-installer
-5. sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
+4. sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
 
 ### Configuration
 
