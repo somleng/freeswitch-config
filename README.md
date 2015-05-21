@@ -80,7 +80,9 @@ sudo service freeswitch restart
 #### Public MSC IP
 
 ```
-27.109.112.80
+27.109.112.80 (SIP)
+27.109.112.84 (RTP)
+27.109.112.0/24 (SMARTAXIATA)
 ```
 
 ### qb
@@ -88,7 +90,8 @@ sudo service freeswitch restart
 #### Public MSC IP
 
 ```
-117.55.252.146
+117.55.252.146 (SIP & RTP)
+117.55.252.0/24 (CADCOMMS)
 ```
 
 ### CooTel
@@ -96,28 +99,22 @@ sudo service freeswitch restart
 #### Public MSC IP
 
 ```
-103.5.126.165
+103.5.126.165 (SIP & RTP)
+103.5.126.0/24 (XINWEITELECOM-KH)
 ```
 
 ## Firewall
 
-For more information read [the Amazon EC2 Freeswitch Wiki](http://wiki.freeswitch.org/wiki/Amazon_ec2)
-
 Open up the following ports:
 
-    udp     16384:32768
-    udp     4569
-    udp     5060
-    tcp     5060
-    udp     5080
-    tcp     5080
-    tcp     8000
-    udp     8000
+    udp     16384:32768  (RTP)
+    udp     5060         (SIP)
+    tcp     5222         (XMPP / Adhearsion)
 
 ### Useful CLI Commands
 
 ### Reload SIP Profiles
 
 ```
-sofia profile [internal|external] [rescan|reload]
+sofia profile external [rescan|reload]
 ```
