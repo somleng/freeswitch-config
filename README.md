@@ -12,11 +12,11 @@ freeswitch.chibitxt.me
 
 ### master
 
-These are the config files needed on the Production and Staging Servers
+Contains the config files needed on the Production Server
 
 ### production_testing
 
-This branch contains the config files needed for your develoment machine
+Contains the config files needed for your develoment machine
 
 ## Installation
 
@@ -42,11 +42,9 @@ Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for d
 
 #### mod G729
 
-sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
-
 ##### Installation
 
-Adapted from: (http://files.freeswitch.org/g729/INSTALL)[INSTALL]
+Adapted from the [official installation instructions](http://files.freeswitch.org/g729/INSTALL)
 
 1. cd /src
 2. wget http://files.freeswitch.org/g729/fs-latest-installer
