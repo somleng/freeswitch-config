@@ -1,6 +1,7 @@
 <configuration name="rayo.conf" description="Rayo server config">
   <settings>
     <param name="max-idle-sec" value="300"/>
+    <param name="add-variables-to-events" value="true"/>
   </settings>
 
   <domain name="$${rayo_domain_name}" shared-secret="$${rayo_shared_secret}">
