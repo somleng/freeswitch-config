@@ -8,6 +8,16 @@ Freeswitch config files for Chibi
 
 freeswitch.chibitxt.me
 
+### SysAdmin
+
+#### Cron
+
+##### Cleanup Logs
+
+You'll need a cron job to clean up the logs otherwise you'll run out of diskspace.
+
+Copy the [cron job](https://github.com/dwilkie/freeswitch-config/blob/master/cron/freeswitch) to `/etc/cron.daily` and set it's permissions to `755`
+
 ## Branches
 
 ### master

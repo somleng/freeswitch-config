@@ -1,0 +1,5 @@
+#!/bin/sh
+# Remove freeswitch logs older than 15 days.
+# To install copy this file to /etc/cron.daily and make sure it has the permissions 755
+
+/usr/bin/find /var/log/freeswitch/ -name "freeswitch.log.*" -mtime +15 -delete
