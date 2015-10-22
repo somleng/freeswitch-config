@@ -26,7 +26,34 @@ Contains the config files needed on the Production Server
 
 ### production_testing
 
-Contains the config files needed for your develoment machine
+Contains the config files needed for your development machine
+
+### gsm_modem
+
+Use this branch to use `mod_gsmopen` and `mod_sms` with a GSM modem
+
+#### Installation
+
+See also the the official instructions to compile and install [mod_gsmopen](https://freeswitch.org/confluence/display/FREESWITCH/mod_gsmopen).
+
+The `mod_gsmopen` source can be found in the [repo](https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/endpoints/mod_gsmopen). You'll also need to install `libfreeswitch` with `sudo apt-get install libfreeswitch` in order to compile it. Note there is no binary debian package for `mod_gsmopen`
+
+##### Permissions
+
+Add freeswitch to the dialout group
+
+`sudo usermod -a -G dialout freeswitch`
+
+##### Huawei USB Driver Installation
+
+You might need to install the Huawei proprietary drivers. The following helped:
+
+http://askubuntu.com/questions/323031/how-to-install-ndis-driver-for-huawei-mobile-broadband-devices
+
+##### Usage
+
+The default dialplan is set up to receive calls on 2909 and bridge to the `gsmopen_mt_number` in `secrets.xml`
+The default chatplan is set up to receive SMS and reply to the sent number
 
 ## Installation
 
