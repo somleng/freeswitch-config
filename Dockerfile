@@ -18,4 +18,4 @@ EXPOSE 5066/tcp 7443/tcp
 EXPOSE 8021/tcp
 EXPOSE 64535-65535/udp
 
-CMD service freeswitch start && tail -f /usr/local/freeswitch/log/freeswitch.log
+CMD service freeswitch start
