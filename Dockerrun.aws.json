@@ -3,12 +3,6 @@
   "Ports": [
     {
       "ContainerPort": "5222"
-    },
-    {
-      "ContainerPort": "5060"
-    },
-    {
-      "ContainerPort": "5080"
     }
   ]
 }
