@@ -13,4 +13,6 @@ RUN rm ./printvars
 
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
+EXPOSE 5222/tcp
+
 CMD service freeswitch start
