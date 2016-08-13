@@ -4,6 +4,13 @@ RUN apt-get update && apt-get install -y freeswitch-mod-shout freeswitch-mod-htt
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ADD conf /etc/freeswitch
+
+ADD bin/printvars /tmp
+WORKDIR /tmp
+RUN chmod u+x ./printvars
+RUN ./printvars /etc/freeswitch
+RUN rm ./printvars
+
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
 EXPOSE 5060/tcp 5060/udp 5080/tcp 5080/udp
