@@ -2,7 +2,16 @@
   "AWSEBDockerrunVersion": "1",
   "Ports": [
     {
-      "ContainerPort": "5222"
+      "ContainerPort": "5222",
+      "protocol": "tcp"
+    },
+    {
+      "ContainerPort": "5060",
+      "protocol": "tcp"
+    },
+    {
+      "ContainerPort": "5060",
+      "protocol": "udp"
     }
   ]
 }

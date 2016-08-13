@@ -13,9 +13,4 @@ RUN rm ./printvars
 
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
-EXPOSE 5060/tcp 5060/udp 5080/tcp 5080/udp
-EXPOSE 5066/tcp 7443/tcp
-EXPOSE 8021/tcp
-EXPOSE 64535-65535/udp
-
 CMD service freeswitch start
