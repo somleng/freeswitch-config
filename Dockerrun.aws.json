@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "freeswitch",
-      "image": "dwilkie/freeswitch-config:latest",
+      "image": "dwilkie/freeswitch-config",
       "essential": true,
       "memory": 128,
       "portMappings": [
