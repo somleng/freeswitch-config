@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "freeswitch",
+      "image": "dwilkie/freeswitch-config:latest",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 5222,
+          "containerPort": 5222,
+          "protocol": "tcp"
+        },
+        {
+          "hostPort": 5060,
+          "containerPort": 5060,
+          "protocol": "udp"
+        }
+      ]
+    }
+  ]
+}
