@@ -15,4 +15,4 @@ RUN chown -R freeswitch:daemon /etc/freeswitch
 
 EXPOSE 5222/tcp
 
-CMD service freeswitch start
+CMD /usr/bin/freeswitch -u freeswitch -g daemon -nonat -c
