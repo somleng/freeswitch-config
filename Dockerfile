@@ -26,5 +26,7 @@ RUN chown freeswitch:daemon /var/log/freeswitch/freeswitch.log
 # Install the entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["freeswitch"]
+# ENTRYPOINT ["/docker-entrypoint.sh"]
+# CMD ["freeswitch"]
+
+CMD ["/usr/bin/freeswitch", "-u", "freeswitch", "-g", "daemon", "-nonat"]
