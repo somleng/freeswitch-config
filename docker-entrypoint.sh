@@ -8,7 +8,7 @@ if [ "$1" = 'freeswitch' ]; then
     exit 1
   fi
 
-  eval $(aws s3 cp s3://${SECRETS_BUCKET_NAME}/${SECRETS_FILE_NAME} /etc/freeswitch/secrets.xml)
+  aws s3 cp s3://${SECRETS_BUCKET_NAME}/${SECRETS_FILE_NAME} /etc/freeswitch/secrets.xml
 
   chmod 400 /etc/freeswitch/secrets.xml
   chown freeswitch:daemon /etc/freeswitch/secrets.xml
