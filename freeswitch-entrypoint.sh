@@ -7,6 +7,8 @@ if [ -z "$SECRETS_BUCKET_NAME" ]; then
 fi
 
 # Load the S3 secrets file contents into the environment variables
-eval $(aws s3 cp --quiet s3://${SECRETS_BUCKET_NAME}/${SECRETS_FILE_NAME} conf/secrets.xml)
+eval $(aws s3 cp s3://${SECRETS_BUCKET_NAME}/${SECRETS_FILE_NAME} /etc/freeswitch/secrets.xml)
+chmod 400 /etc/freeswitch/secrets.xml
+chown freeswitch:daemon /etc/freeswitch/secrets.xml
 
 exec "$@"
