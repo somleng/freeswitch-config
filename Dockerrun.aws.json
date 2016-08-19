@@ -22,6 +22,16 @@
           "containerPort": 5060,
           "protocol": "udp"
         }
+      ],
+      "environment": [
+        {
+          "name": "SECRETS_BUCKET_NAME",
+          "value": "somlengsecrets"
+        },
+        {
+          "name": "SECRETS_FILE_NAME",
+          "value": "freeswitch_secrets.xml"
+        },
       ]
     }
   ]
