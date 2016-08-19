@@ -16,7 +16,4 @@ RUN chown -R freeswitch:daemon /etc/freeswitch
 RUN touch /var/log/freeswitch/freeswitch.log
 RUN chown freeswitch:daemon /var/log/freeswitch/freeswitch.log
 
-EXPOSE 5222/tcp
-EXPOSE 8021/tcp
-
-CMD /usr/bin/freeswitch -u freeswitch -g daemon -nonat -c
+ENTRYPOINT ["/usr/bin/freeswitch", "-u", "freeswitch", "-g", "daemon", "-nonat"]
