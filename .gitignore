@@ -1,4 +1,5 @@
 conf/secrets.xml
+policy.json
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
