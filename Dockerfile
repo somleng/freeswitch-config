@@ -15,6 +15,7 @@ RUN apt-get update && \
     rm awscli-bundle.zip && rm -rf awscli-bundle \
     && apt-get purge -y --auto-remove curl unzip
 
+# Copy the Freeswitch configuration
 COPY conf /etc/freeswitch
 
 RUN chown -R freeswitch:daemon /etc/freeswitch
