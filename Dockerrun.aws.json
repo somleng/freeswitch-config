@@ -31,7 +31,7 @@
         {
           "name": "SECRETS_FILE_NAME",
           "value": "freeswitch_secrets.xml"
-        },
+        }
       ]
     }
   ]
