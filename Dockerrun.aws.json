@@ -13,6 +13,11 @@
           "protocol": "tcp"
         },
         {
+          "hostPort": 8021,
+          "containerPort": 8021,
+          "protocol": "tcp"
+        },
+        {
           "hostPort": 5060,
           "containerPort": 5060,
           "protocol": "udp"
