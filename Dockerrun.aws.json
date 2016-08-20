@@ -1,5 +1,13 @@
 {
   "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "freeswitch-logs",
+      "host": {
+        "sourcePath": "/var/log/containers/freeswitch"
+      }
+    }
+  ],
   "containerDefinitions": [
     {
       "name": "freeswitch",
@@ -8,7 +16,7 @@
       "memory": 128,
       "mountPoints": [
         {
-          "sourceVolume": "/var/log/containers/freeswitch",
+          "sourceVolume": "freeswitch-logs",
           "containerPath": "/var/log/freeswitch"
         }
       ],
