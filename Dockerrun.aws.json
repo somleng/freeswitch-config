@@ -23,8 +23,7 @@
       "mountPoints": [
         {
           "sourceVolume": "freeswitch-conf",
-          "containerPath": "/etc/freeswitch",
-          "readOnly": true
+          "containerPath": "/etc/freeswitch"
         },
         {
           "sourceVolume": "freeswitch-logs",
