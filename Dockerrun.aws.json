@@ -6,6 +6,12 @@
       "image": "dwilkie/freeswitch-rayo",
       "essential": true,
       "memory": 128,
+      "mountPoints": [
+        {
+          "sourceVolume": "/var/log/containers/freeswitch",
+          "containerPath": "/var/log/freeswitch"
+        }
+      ],
       "portMappings": [
         {
           "hostPort": 5222,

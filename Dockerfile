@@ -21,7 +21,7 @@ COPY conf /etc/freeswitch
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
 RUN touch /var/log/freeswitch/freeswitch.log
-RUN chown freeswitch:daemon /var/log/freeswitch/freeswitch.log
+RUN chown freeswitch:freeswitch /var/log/freeswitch/freeswitch.log
 
 # Install the entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
