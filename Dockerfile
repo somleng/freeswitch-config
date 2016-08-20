@@ -2,7 +2,7 @@ FROM dwilkie/docker-freeswitch:latest
 
 # Install required freeswitch modules
 
-RUN apt-get update && apt-get install -y freeswitch-mod-shout freeswitch-mod-http-cache freeswitch-mod-rayo freeswitch-mod-xml-cdr \
+RUN apt-get update && apt-get install -y freeswitch-mod-shout freeswitch-mod-http-cache freeswitch-mod-rayo freeswitch-mod-xml-cdr && freeswitch-mod-event-socket \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install the AWS CLI
