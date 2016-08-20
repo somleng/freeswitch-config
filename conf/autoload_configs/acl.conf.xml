@@ -9,7 +9,7 @@
    loopback.auto - ACL for your local lan.
     -->
 
-  <list name="localnet.auto" default="allow">
+  <list name="loopback.auto" default="allow">
     <node type="allow" cidr="172.17.0.0/24"/>
   </list>
 
