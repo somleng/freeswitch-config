@@ -127,6 +127,14 @@ $ chmod 600 freeswitch_secrets.xml
 $ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
 ```
 
+#### Dockerrun.aws.json
+
+[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) contains the container configuration for FreeSwitch. It's options are passed to the `docker run` command.
+
+##### Memory
+
+You must specify the memory option in this file. To set it to the maximum value possible, first set it to a number exceeding the memory of the host instance. Then grep the logs in `/var/log/eb-ecs-mgr.log` and look for `remainingResources`. Look for the `MEMORY` value and use this in your `Dockerrun.aws.json` file.
+
 #### Firewall and Networking
 
 [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
@@ -134,13 +142,6 @@ $ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.x
     udp     16384:32768  (RTP)
     udp     5060         (SIP)
     tcp     5222         (XMPP / Adhearsion)
-
-#### Troubleshooting
-
-If the app fails to deploy the following logs are useful:
-
-* `/var/log/eb-ecs-mgr.log`
-* `/var/log/eb-activity.log`
 
 #### FreeSwitch CLI
 
@@ -155,7 +156,7 @@ $ sudo docker run -i -t dwilkie/freeswitch-rayo /bin/bash
 $ fs_cli -H FREESWITCH_HOST -p EVENT_SOCKET_PASSWORD
 ```
 
-##### Useful FreeSwitch CLI Commands
+##### Useful Commands
 
 Reload SIP Profiles
 
@@ -168,3 +169,10 @@ Turn on siptrace
 ```
 sofia global siptrace on
 ```
+
+#### Troubleshooting
+
+If the app fails to deploy the following logs are useful:
+
+* `/var/log/eb-ecs-mgr.log`
+* `/var/log/eb-activity.log`
