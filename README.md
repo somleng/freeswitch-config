@@ -1,196 +1,30 @@
 # freeswitch-config
 
-Freeswitch config files for Chibi
-
-TODO:
-
-* Configure CORS
-* Configure RTP Ports - https://freeswitch.org/confluence/display/FREESWITCH/NAT+Traversal
-
-## Servers
-
-### Production
-
-freeswitch.chibitxt.me
-
-### SysAdmin
-
-#### Cron
-
-##### Cleanup Logs
-
-You'll need a cron job to clean up the logs otherwise you'll run out of diskspace.
-
-Copy the [cron job](https://github.com/dwilkie/freeswitch-config/blob/master/cron/freeswitch) to `/etc/cron.daily` and set it's permissions to `755`
-
-## Branches
-
-### master
-
-Contains the config files needed on the Production Server
-
-### production_testing
-
-Contains the config files needed for your development machine
-
-### gsm_modem
-
-Use this branch to use `mod_gsmopen` and `mod_sms` with a GSM modem
-
-#### Installation
-
-See also the the official instructions to compile and install [mod_gsmopen](https://freeswitch.org/confluence/display/FREESWITCH/mod_gsmopen).
-
-The `mod_gsmopen` source can be found in the [repo](https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/endpoints/mod_gsmopen). You'll also need to install `libfreeswitch` with `sudo apt-get install libfreeswitch` in order to compile it. Note there is no binary debian package for `mod_gsmopen`
-
-##### Permissions
-
-Add freeswitch to the dialout group
-
-`sudo usermod -a -G dialout freeswitch`
-
-##### Huawei USB Driver Installation
-
-You might need to install the Huawei proprietary drivers. The following helped:
-
-http://askubuntu.com/questions/323031/how-to-install-ndis-driver-for-huawei-mobile-broadband-devices
-
-##### Usage
-
-The default dialplan is set up to receive calls on 2909 and bridge to the `gsmopen_mt_number` in `secrets.xml`
-The default chatplan is set up to receive SMS and reply to the sent number
-
-## Installation
-
-### Installing Freeswitch
-
-Use the [pre-compiled Debian Package](https://freeswitch.org/confluence/display/FREESWITCH/Debian).
-
-### Installing Required Modules
-
-* mod_shout (required for mp3 playback)
-  * `sudo apt-get install freeswitch-mod-shout`
-* mod_http_cache (for caching mp3 playback)
-  * `sudo apt-get install freeswitch-mod-http-cache`
-* mod_rayo (Required for Adhearsion)
-  * `sudo apt-get install freeswitch-mod-rayo`
-* mod_xml_cdr (Required for posting CDR)
-  * `sudo apt-get install freeswitch-mod-xml-cdr`
-
-### Required Licences
-
-mod_g729 requires one licence per channel. We have currently purchased 5 licences which should allow 5 simultanious calls using G.729.
-Read the [G.729 codec guide](http://wiki.freeswitch.org/wiki/Mod_com_g729) for details on how to purchase additional licences. Note that each licence costs $10.
-
-#### mod G729
-
-##### Installation
-
-Adapted from the [official installation instructions](http://files.freeswitch.org/g729/INSTALL)
-
-1. cd /src
-2. wget http://files.freeswitch.org/g729/fs-latest-installer
-3. chmod u+x fs-latest-installer
-4. sudo ./fs-latest-installer /usr/bin /usr/lib/freeswitch/mod /etc/freeswitch
-
-### Configuration
-
-#### Installing Configuration
-
-```
-cd ~
-git clone git@github.com:dwilkie/freeswitch-config.git
-git checkout <master_or_production_testing>
-sudo cp -a freeswitch_config /etc/freeswitch
-sudo chown -R freeswitch:daemon /etc/freeswitch
-```
-
-Don't forget to put the correct values in `/etc/freeswitch/secrets.xml`
-
-#### Restart FreeSwitch
-
-```
-sudo service freeswitch restart
-```
+Freeswitch configuration optimized for [mod_rayo](https://freeswitch.org/confluence/display/FREESWITCH/mod_rayo) and [Adhearsion](https://github.com/adhearsion/adhearsion).
 
 ## Deployment
 
-### Amazon AWS Elastic Beanstalk
+### Elastic Beanstalk
 
-#### Updating Configuration
-
-1. ssh into the freeswitch application.
-
-```
-$ eb ssh
-```
-
-2. Download the configuration from the bucket.
-
-```
-$ aws s3 cp s3://${SECRETS_BUCKET_NAME}/freeswitch_secrets.xml .
-```
-
-3. Change the permissons of the downloaded secrets file
-
-```
-$ chmod 600 freeswitch_secrets.xml
-```
-
-4. Modify the secrets file
-
-5. Reupload it to S3
-
-```
-$ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
-```
-
-6. Redeploy the application
-
-```
-$ eb deploy
-```
-
-#### FreeSwitch CLI
-
-Follow the steps below to access the FS CLI
-
-1. SSH into your instance using the Elastic Beanstalk console
-
-```
-$ eb ssh
-```
-
-2. Run the docker container which contains FreeSwitch
-
-```
-$ sudo docker run -i -t dwilkie/freeswitch-rayo /bin/bash
-```
-
-3. Run the `fs_cli` command specifying the host name of the container replacing `FREESWITCH_HOST` with the docker ip address of the container running freeswitch and `EVENT_SOCKET_PASSWORD` with the password specified in your secrets file.
-
-```
-$ fs_cli -H FREESWITCH_HOST -p EVENT_SOCKET_PASSWORD
-```
-
-#### Troubleshooting
-
-If the app fails to deploy the following logs are useful:
-
-* `/var/log/eb-ecs-mgr.log`
-* `/var/log/eb-activity.log`
+This configuration is optimized for deployment on a Amazon Elastic Beanstalk multicontainer docker instance. To deploy this to your own AWS account create an Elastic Beanstalk application and follow the one-time setup instructions below.
 
 #### One-Time Setup
 
-Create an Elastic Beanstalk application from the AWS web console under your existing VPC (or create a new one). This will give you a static IP address.
+##### Create a new Elastic Beanstalk Application
 
-##### Handling Secrets
+Create an Elastic Beanstalk single instance application from the AWS web console under your existing VPC (or create a new one). This will give you an Elastic IP address which won't change if you terminate or scale your instances.
 
-Adapted from https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi
+##### Configure a S3 bucket to store your FreeSwitch secrets
 
-1. Create a bucket in S3 using the AWS web console in which to store your secrets
+Adapted from [this blog post].(https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
 
-2. Create a VPC Endpoint to S3 with the following command replacing `<your-aws-profile>` with your configured profile in `~/.aws/credentials`, `VPC_ID` and `ROUTE_TABLE_ID` with the values found in your VPC configuration via the AWS web console and `REGION` with the name of your region e.g. `ap-southeast-1`
+Sensitive freeswitch configuration such as passwords etc are stored in `freeswitch_secrets.xml` and stored on S3. When the docker container runs the [docker-entrypoint.sh](https://github.com/dwilkie/freeswitch-config/blob/master/docker-entrypoint.sh) downloads the configuration before starting freeswitch.
+
+In order for this to work you need to set up an S3 bucket in your AWS account in which to store the secrets and restrict the access to the VPC.
+
+First, create a bucket in S3 using the AWS web console in which to store your secrets.
+
+Next, create a VPC Endpoint to S3. Use the following command following command replacing `<your-aws-profile>` with your configured profile in `~/.aws/credentials`, `VPC_ID` and `ROUTE_TABLE_ID` with the values found in your VPC configuration via the AWS web console and `REGION` with the name of your region e.g. `ap-southeast-1`
 
 ```
 $ aws ec2 --profile <your-aws-profile> create-vpc-endpoint --vpc-id VPC_ID --route-table-ids ROUTE_TABLE_ID --service-name com.amazonaws.REGION.s3 --region REGION
@@ -217,7 +51,9 @@ You should see the output similar to the following:
 
 Take note of the `VpcEndpointId` which is required for the next step.
 
-3. Create a file called `policy.json` with the following contents replacing `SECRETS_BUCKET_NAME` with your the name of your new bucket and `VPC_ID` with the `VpcEndpointId` from the previous step.
+Next, create a file called `policy.json` with the following contents replacing `SECRETS_BUCKET_NAME` with your the name of your new bucket and `VPC_ID` with the `VpcEndpointId` from the previous step.
+
+This policy prevents unencrypted uploads and restricts access to the bucket to the VPC.
 
 ```json
 {
@@ -263,7 +99,7 @@ Take note of the `VpcEndpointId` which is required for the next step.
 }
 ```
 
-4. Add the policy to the bucket using the following command replacing `SECRETS_BUCKET_NAME` with the name of your bucket.
+Next, add the policy to the bucket. Use the following command replacing `SECRETS_BUCKET_NAME` with the name of your bucket.
 
 ```
 $ aws s3api put-bucket-policy --profile <your-aws-profile> --bucket SECRETS_BUCKET_NAME --policy file:////home/user/path/to/policy.json
@@ -272,59 +108,63 @@ $ aws s3api put-bucket-policy --profile <your-aws-profile> --bucket SECRETS_BUCK
 You can check that your policy was uploaded successfully with the following command.
 
 ```
-$ aws s3api get-bucket-policy --profile pin --bucket SECRETS_BUCKET_NAME
+$ aws s3api get-bucket-policy --profile <your-aws-profile> --bucket SECRETS_BUCKET_NAME
 ```
 
-5. Allow your Elastic Beanstalk Instances to access S3. Using the AWS web console, navigate to IAM roles and add a policy to the role `aws-elasticbeanstalk-ec2-role` to allow Amazon S3 Full Access.
+Next, allow your Elastic Beanstalk Instances to access S3. Using the AWS web console, navigate to IAM roles and add a policy to the role `aws-elasticbeanstalk-ec2-role` to allow Amazon S3 Full Access.
 
-6. Using the following command, upload `freeswitch_secrets.xml` to S3 from your EC2 Instance. You cannot do this from your development machine because we have already resticted access to the VPC.
+Finally, upload `freeswitch_secrets.xml` to S3 from your EC2 Instance. Note you cannot do this from your development machine because we have already resticted access to the VPC.
 
 ```
 $ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
 ```
 
-## IP addresses
-
-### Smart
-
-#### Public MSC IP
+When updating secrets, download `freeswitch_secrets.xml` from S3, update the file, reupload it to S3 and re-deploy the application. The following commands are useful:
 
 ```
-27.109.112.80 (SIP)
-27.109.112.84 (RTP)
-27.109.112.0/24 (SMARTAXIATA)
+$ aws s3 cp s3://${SECRETS_BUCKET_NAME}/freeswitch_secrets.xml .
+$ chmod 600 freeswitch_secrets.xml
+$ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
 ```
 
-### qb
+#### Firewall and Networking
 
-#### Public MSC IP
-
-```
-117.55.252.146 (SIP & RTP)
-117.55.252.0/24 (CADCOMMS)
-```
-
-### CooTel
-
-#### Public MSC IP
-
-```
-103.5.126.165 (SIP & RTP)
-103.5.126.0/24 (XINWEITELECOM-KH)
-```
-
-## Firewall
-
-Open up the following ports:
+[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
 
     udp     16384:32768  (RTP)
     udp     5060         (SIP)
     tcp     5222         (XMPP / Adhearsion)
 
-### Useful CLI Commands
+#### Troubleshooting
 
-### Reload SIP Profiles
+If the app fails to deploy the following logs are useful:
+
+* `/var/log/eb-ecs-mgr.log`
+* `/var/log/eb-activity.log`
+
+#### FreeSwitch CLI
+
+In order to access the FreeSwitch CLI ssh into your instance, run the docker container which contains FreeSwitch in interactive mode with `/bin/bash`, then from within the container, run the `fs_cli` command specifying the host and password parameters. The host can be found by inspecting the running freeswitch instance's container and the event socket password is in your `freeswitch_secrets.xml`.
+
+The following commands are useful.
+
+```
+$ sudo docker ps
+$ sudo docker inspect <process_id>
+$ sudo docker run -i -t dwilkie/freeswitch-rayo /bin/bash
+$ fs_cli -H FREESWITCH_HOST -p EVENT_SOCKET_PASSWORD
+```
+
+##### Useful FreeSwitch CLI Commands
+
+Reload SIP Profiles
 
 ```
 sofia profile external [rescan|reload]
+```
+
+Turn on siptrace
+
+```
+sofia global siptrace on
 ```
