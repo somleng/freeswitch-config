@@ -16,7 +16,7 @@ Create an Elastic Beanstalk single instance application from the AWS web console
 
 ##### Configure a S3 bucket to store your FreeSwitch secrets
 
-Adapted from [this blog post].(https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
+Adapted from [this blog post](https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
 
 Sensitive freeswitch configuration such as passwords etc are stored in `freeswitch_secrets.xml` and stored on S3. When the docker container runs the [docker-entrypoint.sh](https://github.com/dwilkie/freeswitch-config/blob/master/docker-entrypoint.sh) downloads the configuration before starting freeswitch.
 
