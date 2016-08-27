@@ -19,7 +19,7 @@
       "name": "freeswitch",
       "image": "dwilkie/freeswitch-rayo",
       "essential": true,
-      "memory": 1024,
+      "memory": 995,
       "mountPoints": [
         {
           "sourceVolume": "freeswitch-config",
