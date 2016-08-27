@@ -29,5 +29,8 @@
 
     <!-- CDR -->
     <load module="mod_json_cdr"/>
+
+    <!-- TTS -->
+    <load module="mod_flite"/>
   </modules>
 </configuration>
