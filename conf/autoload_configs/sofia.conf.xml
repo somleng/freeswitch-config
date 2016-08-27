@@ -18,18 +18,6 @@
         <param name="rtp-timer-name" value="soft"/>
         <param name="apply-inbound-acl" value="domains"/>
       </settings>
-
-      <gateways>
-        <gateway name="didlogic">
-          <param name="username" value="$${didlogic_username}"/>
-          <param name="realm" value="$${didlogic_realm}"/>
-          <param name="password" value="$${didlogic_password}"/>
-          <param name="register" value="true"/>
-          <param name="context" value="public"/>
-          <param name="caller-id-in-from" value="true"/>
-          <param name="sip_cid_type" value="none"/>
-        </gateway>
-      </gateways>
     </profile>
   </profiles>
 </configuration>
