@@ -3,5 +3,7 @@
     <param name="colorize-console" value="true"/>
     <param name="loglevel" value="debug"/>
     <param name="dump-cores" value="yes"/>
+    <!-- Store the database in memory to avoid disk writes -->
+    <param name="core-db-name" value="/dev/shm/core.db" />
   </settings>
 </configuration>
