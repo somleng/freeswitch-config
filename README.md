@@ -6,15 +6,22 @@ Freeswitch configuration optimized for [mod_rayo](https://freeswitch.org/conflue
 
 ### Elastic Beanstalk
 
-This configuration is optimized for deployment on a Amazon Elastic Beanstalk multicontainer docker instance. To deploy this to your own AWS account create an Elastic Beanstalk application and follow the one-time setup instructions below.
+This configuration is optimized for deployment on a Amazon Elastic Beanstalk multicontainer docker instance. To deploy this to your own AWS account create an Elastic Beanstalk application and follow the instructions below.
 
-#### One-Time Setup
+#### Create a VPC
 
-##### Create a new Elastic Beanstalk Application
+Create a VPC with 2 public subnets (one for each availability zone)
 
-Create an Elastic Beanstalk single instance application from the AWS web console under your existing VPC (or create a new one). This will give you an Elastic IP address which won't change if you terminate or scale your instances.
+#### Create a new Elastic Beanstalk Application
 
-##### Configure a S3 bucket to store your FreeSwitch secrets
+Create an Multi-Container Docker Elastic Beanstalk single instance application under your VPC. This will give you an Elastic IP address which won't change if you terminate or scale your instances. When prompted for the VPC details enter the VPC and subnets you created above. The following commands are useful.
+
+```
+$ eb platform select
+$ eb create --vpc -i t2.micro --single
+```
+
+#### Configure a S3 bucket to store your FreeSwitch secrets
 
 Adapted from [this blog post](https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
 
@@ -135,13 +142,15 @@ $ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.x
 
 You must specify the memory option in this file. To set it to the maximum value possible, first set it to a number exceeding the memory of the host instance. Then grep the logs in `/var/log/eb-ecs-mgr.log` and look for `remainingResources`. Look for the `MEMORY` value and use this in your `Dockerrun.aws.json` file.
 
-#### Firewall and Networking
+#### Security Groups and Networking
 
 [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
 
     udp     16384:32768  (RTP)
     udp     5060         (SIP)
     tcp     5222         (XMPP / Adhearsion)
+
+It's highly recommended that you restrict the source of the ports in your security group. For example for SIP and RTP traffic restric the ports to the known SIP provider / telco. For XMPP / Adhearsion you can restrict the port to instances inside the your VPC.
 
 #### FreeSwitch CLI
 
@@ -156,7 +165,7 @@ $ sudo docker run -i -t dwilkie/freeswitch-rayo /bin/bash
 $ fs_cli -H FREESWITCH_HOST -p EVENT_SOCKET_PASSWORD
 ```
 
-##### Useful Commands
+##### Useful CLI Commands
 
 Reload SIP Profiles
 
