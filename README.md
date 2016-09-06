@@ -142,6 +142,10 @@ $ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.x
 
 You must specify the memory option in this file. To set it to the maximum value possible, first set it to a number exceeding the memory of the host instance. Then grep the logs in `/var/log/eb-ecs-mgr.log` and look for `remainingResources`. Look for the `MEMORY` value and use this in your `Dockerrun.aws.json` file.
 
+##### RTP Port Mappings
+
+The script `./bin/open_rtp_ports.rb`, adds RTP port mappings to `Dockerrun.aws.json`.
+
 #### Security Groups and Networking
 
 [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
