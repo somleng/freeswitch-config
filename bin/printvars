@@ -1,4 +1,0 @@
-#!/bin/bash
-set -e
-
-printenv > /etc/freeswitch/test.txt
