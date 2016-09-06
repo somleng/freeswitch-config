@@ -35,7 +35,7 @@ class RtpPortOpener
 
   def find_existing_non_rtp_port_mappings
     self.existing_non_rtp_port_mappings = (((dockerrun_json["containerDefinitions"] || [])[0] || {})["portMappings"] || []).select do |port_mapping|
-      pm = port_mapping["hostPort"].to_i
+      pm = port_mapping["containerPort"].to_i
       pm < MIN_RTP_START_PORT || pm > MAX_RTP_END_PORT
     end
   end
