@@ -57,12 +57,14 @@ class RtpPortOpener
 
   def print_output
     puts ""
-
-    puts "Don't forget to set the following configuration in your freeswitch_secrets.xml"
+    puts "***************************"
+    puts "Added RTP Ports to #{dockerrun_path}"
+    puts "Don't forget to open the RTP ports in your security group and set the following configuration in your freeswitch_secrets.xml"
     puts "
     <X-PRE-PROCESS cmd=\"set\" data=\"rtp_start_port=#{rtp_start_port}\"/>
     <X-PRE-PROCESS cmd=\"set\" data=\"rtp_end_port=#{rtp_end_port}\"/>
     "
+    puts "***************************"
   end
 
   def parse_dockerrun_json!
