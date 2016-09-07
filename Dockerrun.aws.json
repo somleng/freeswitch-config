@@ -35,11 +35,6 @@
           "hostPort": 5222,
           "containerPort": 5222,
           "protocol": "tcp"
-        },
-        {
-          "hostPort": 8021,
-          "containerPort": 8021,
-          "protocol": "tcp"
         }
       ],
       "environment": [
