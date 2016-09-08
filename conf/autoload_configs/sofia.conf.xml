@@ -1,23 +1,5 @@
 <configuration name="sofia.conf">
   <profiles>
-    <profile name="external">
-      <settings>
-        <param name="ext-rtp-ip" value="$${external_ip}"/>
-        <param name="ext-sip-ip" value="$${external_ip}"/>
-
-        <param name="rtp-ip" value="$${local_ip_v4}"/>
-        <param name="sip-ip" value="$${local_ip_v4}"/>
-
-        <param name="bind-params" value="transport=udp"/>
-
-        <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
-        <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
-
-        <param name="context" value="default"/>
-        <param name="disable-register" value="true"/>
-        <param name="rtp-timer-name" value="soft"/>
-        <param name="apply-inbound-acl" value="domains"/>
-      </settings>
-    </profile>
+    <X-PRE-PROCESS cmd="include" data="../sip_profiles/*.xml"/>
   </profiles>
 </configuration>
