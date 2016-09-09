@@ -22,9 +22,5 @@
     <param name="rtp-timer-name" value="soft"/>
     <param name="apply-inbound-acl" value="domains"/>
   </settings>
-
-  <gateways>
-    <X-PRE-PROCESS cmd="include" data="external/*.xml"/>
-  </gateways>
 </profile>
 
