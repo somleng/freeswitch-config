@@ -21,15 +21,15 @@ $ eb platform select
 $ eb create --vpc -i t2.micro --single
 ```
 
-#### Configure a S3 bucket to store your FreeSwitch secrets
+#### Configure a S3 bucket to any sensitive or custom configuration
 
 Adapted from [this blog post](https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
 
-Sensitive freeswitch configuration such as passwords etc are stored in `freeswitch_secrets.xml` and stored on S3. When the docker container runs the [docker-entrypoint.sh](https://github.com/dwilkie/freeswitch-config/blob/master/docker-entrypoint.sh) downloads the configuration before starting freeswitch.
+Sensitive freeswitch configuration can be stored on S3. When the docker container runs the [docker-entrypoint.sh](https://github.com/dwilkie/freeswitch-config/blob/master/docker-entrypoint.sh) it downloads the configuration before starting freeswitch.
 
-In order for this to work you need to set up an S3 bucket in your AWS account in which to store the secrets and restrict the access to the VPC.
+In order for this to work you need to set up an S3 bucket in your AWS account in which to store the configuration and restrict the access to the VPC.
 
-First, create a bucket in S3 using the AWS web console in which to store your secrets.
+First, create a bucket in S3 using the AWS web console in which to store your configuration.
 
 Next, create a VPC Endpoint to S3. Use the following command following command replacing `<your-aws-profile>` with your configured profile in `~/.aws/credentials`, `VPC_ID` and `ROUTE_TABLE_ID` with the values found in your VPC configuration via the AWS web console and `REGION` with the name of your region e.g. `ap-southeast-1`
 
@@ -120,18 +120,17 @@ $ aws s3api get-bucket-policy --profile <your-aws-profile> --bucket SECRETS_BUCK
 
 Next, allow your Elastic Beanstalk Instances to access S3. Using the AWS web console, navigate to IAM roles and add a policy to the role `aws-elasticbeanstalk-ec2-role` to allow Amazon S3 Full Access.
 
-Finally, upload `freeswitch_secrets.xml` to S3 from your EC2 Instance. Note you cannot do this from your development machine because we have already resticted access to the VPC.
+Finally, upload your sensitive configuration to S3 from your EC2 Instance. Note you cannot do this from your development machine because we have already resticted access to the VPC.
 
 ```
-$ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
+$ aws s3 cp freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
 ```
 
-When updating secrets, download `freeswitch_secrets.xml` from S3, update the file, reupload it to S3 and re-deploy the application. The following commands are useful:
+When updating configuration, download your custom configuration from S3, update it, reupload it to S3 and re-deploy the application. The following commands are useful:
 
 ```
-$ aws s3 cp s3://${SECRETS_BUCKET_NAME}/freeswitch_secrets.xml .
-$ chmod 600 freeswitch_secrets.xml
-$ aws s3 cp freeswitch_secrets.xml s3://SECRETS_BUCKET_NAME/freeswitch_secrets.xml --sse
+$ aws s3 cp s3://${SECRETS_BUCKET_NAME}/FREESWITCH_CONF_DIR .
+$ aws s3 cp freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
 ```
 
 #### Dockerrun.aws.json
@@ -158,7 +157,7 @@ It's highly recommended that you restrict the source of the ports in your securi
 
 #### FreeSwitch CLI
 
-In order to access the FreeSwitch CLI ssh into your instance, run the docker container which contains FreeSwitch in interactive mode with `/bin/bash`, then from within the container, run the `fs_cli` command specifying the host and password parameters. The host can be found by inspecting the running freeswitch instance's container and the event socket password is in your `freeswitch_secrets.xml`.
+In order to access the FreeSwitch CLI ssh into your instance, run the docker container which contains FreeSwitch in interactive mode with `/bin/bash`, then from within the container, run the `fs_cli` command specifying the host and password parameters. The host can be found by inspecting the running freeswitch instance's container.
 
 The following commands are useful.
 

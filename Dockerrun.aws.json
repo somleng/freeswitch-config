@@ -43,8 +43,8 @@
           "value": "somlengsecrets"
         },
         {
-          "name": "SECRETS_FILE_NAME",
-          "value": "freeswitch_secrets.xml"
+          "name": "FREESWITCH_CONF_DIR",
+          "value": "freeswitch/conf"
         }
       ]
     }
