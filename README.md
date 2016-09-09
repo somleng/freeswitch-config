@@ -123,14 +123,14 @@ Next, allow your Elastic Beanstalk Instances to access S3. Using the AWS web con
 Finally, upload your sensitive configuration to S3 from your EC2 Instance. Note you cannot do this from your development machine because we have already resticted access to the VPC.
 
 ```
-$ aws s3 cp freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
+$ aws s3 cp --recursive freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
 ```
 
 When updating configuration, download your custom configuration from S3, update it, reupload it to S3 and re-deploy the application. The following commands are useful:
 
 ```
-$ aws s3 cp s3://${SECRETS_BUCKET_NAME}/FREESWITCH_CONF_DIR .
-$ aws s3 cp freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
+$ aws s3 cp --recursive s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR freeswitch_conf
+$ aws s3 cp --recursive freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
 ```
 
 #### Dockerrun.aws.json
