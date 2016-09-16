@@ -141,9 +141,11 @@ $ aws s3 cp --recursive freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_
 
 You must specify the memory option in this file. To set it to the maximum value possible, first set it to a number exceeding the memory of the host instance. Then grep the logs in `/var/log/eb-ecs-mgr.log` and look for `remainingResources`. Look for the `MEMORY` value and use this in your `Dockerrun.aws.json` file.
 
-##### RTP Port Mappings
+##### RTP and SIP Port Mappings
 
-The script `./bin/open_rtp_ports.rb`, adds RTP port mappings to `Dockerrun.aws.json`.
+There [used to be a script](https://github.com/dwilkie/freeswitch-config/commit/c5d3ab0545ff729e44f84a2336a432a602e1ee9f) which added RTP port mappings to `Dockerrun.aws.json`. However there is a [limitation](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) on AWS which limits a container instance to 100 reserved ports at a time.
+
+More importantly though, I found that mapping RTP and SIP ports to the host is not required. I couldn't figure out exactly why but my guess is that the FreeSwitch external profile is configured to handle NAT correctly. So it rewrites the SIP packets to handle the NAT using `ext-rtp-ip` and `ext-sip-ip`. What I still don't understand is how the host knows how to send the packets to the container running FreeSwitch. If someone has a better explanation please open a Pull Request.
 
 #### Security Groups and Networking
 
