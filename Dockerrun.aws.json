@@ -35,6 +35,11 @@
           "hostPort": 5222,
           "containerPort": 5222,
           "protocol": "tcp"
+        },
+        {
+          "hostPort": 5060,
+          "containerPort": 5060,
+          "protocol": "udp"
         }
       ],
       "environment": [
