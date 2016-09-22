@@ -1,22 +1,21 @@
 <configuration name="json_cdr.conf" description="JSON CDR">
   <settings>
-
     <!-- Global parameters -->
-    <param name="log-b-leg" value="false"/>
-    <param name="prefix-a-leg" value="true"/>
+    <!-- <param name="log-b-leg" value="false"/> -->
+    <!--<param name="prefix-a-leg" value="true"/> -->
 
     <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->
-    <param name="encode-values" value="true"/>
+    <!-- <param name="encode-values" value="true"/> -->
 
     <!-- Normally if url and log-dir are present, url is attempted first and log-dir second. This options allows to do both systematically. -->
-    <param name="log-http-and-disk" value="false"/>
+    <!-- <param name="log-http-and-disk" value="false"/> -->
 
     <!-- File logging -->
     <!-- Directory where to create the "json_cdr" directory used to store JSON CDRs. Leave empty for no file logging. -->
     <!-- Might be overriden by a channel variable "json_cdr_base". -->
-    <param name="log-dir" value="/var/log/freeswitch"/>
+    <!-- <param name="log-dir" value="/var/log/freeswitch"/> -->
     <!-- Whether to rotate file CDRs. -->
-    <param name="rotate" value="false"/>
+    <!-- <param name="rotate" value="false"/> -->
 
     <!-- HTTP(S) logging -->
     <!-- URL where to POST JSON CDRs. Leave empty for no URL logging. Up to 20 URLs may be specified.  -->
