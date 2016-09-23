@@ -1,7 +1,7 @@
 <configuration name="http_cache.conf" description="HTTP GET cache">
   <settings>
     <!-- set to true if you want to enable http:// and https:// formats.  Do not use if mod_httapi is also loaded -->
-    <param name="enable-file-formats" value="false"/>
+    <param name="enable-file-formats" value="true"/>
     <param name="max-urls" value="10000"/>
     <param name="location" value="$${cache_dir}"/>
     <param name="default-max-age" value="86400"/>
