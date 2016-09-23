@@ -10,7 +10,7 @@
     {
       "name": "freeswitch-storage",
       "host": {
-        "sourcePath": "/var/cache/freeswitch/storage/http_file_cache"
+        "sourcePath": "/var/cache/freeswitch/storage"
       }
     }
   ],
@@ -27,7 +27,7 @@
         },
         {
           "sourceVolume": "freeswitch-storage",
-          "containerPath": "/var/lib/freeswitch/storage/http_file_cache"
+          "containerPath": "/var/lib/freeswitch/storage"
         }
       ],
       "portMappings": [

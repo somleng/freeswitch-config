@@ -11,6 +11,7 @@ if [ "$1" = 'freeswitch' ]; then
   aws s3 cp --recursive s3://${SECRETS_BUCKET_NAME}/${FREESWITCH_CONF_DIR} /etc/freeswitch/
   chown -R freeswitch:daemon /etc/freeswitch
 
+  chown -R freeswitch:freeswitch /var/lib/freeswitch/storage
   exec /usr/bin/freeswitch -u freeswitch -g daemon -nonat
 fi
 
