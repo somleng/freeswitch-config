@@ -5,3 +5,7 @@ policy.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Ruby test files
+test/vendor/ruby
+test/.bundle

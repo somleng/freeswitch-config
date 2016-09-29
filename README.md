@@ -172,16 +172,36 @@ $ fs_cli -H FREESWITCH_HOST -p EVENT_SOCKET_PASSWORD
 
 ##### Useful CLI Commands
 
-Reload SIP Profiles
+###### Reload SIP Profiles
 
 ```
 sofia profile external [rescan|reload]
 ```
 
-Turn on siptrace
+###### Turn on siptrace
 
 ```
 sofia global siptrace on
+```
+
+###### Freeswitch control messages
+
+####### View max sessions
+
+```
+fsctl max_sessions
+```
+
+####### Set max sessions
+
+```
+fsctl max_sessions 1000
+```
+
+####### Set max sessions-per-second
+
+```
+fsctl sps 200
 ```
 
 #### Troubleshooting
@@ -190,3 +210,24 @@ If the app fails to deploy the following logs are useful:
 
 * `/var/log/eb-ecs-mgr.log`
 * `/var/log/eb-activity.log`
+
+## Load Testing
+
+### SIPp
+
+First install SIPp
+
+```
+$ git clone git@github.com:SIPp/sipp.git
+$ cd sipp
+$ sudo apt-get install libpcap-dev libsctp-dev libgsl-dev
+$ ./build.sh
+$ sudo make install
+```
+
+### sippy_cup
+
+```
+$ cd test
+$ bundle install --path vendor
+```

@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+ruby(File.read(".ruby-version").strip) if File.exist?(".ruby-version")
+
+group :test do
+  gem 'sippy_cup', :github => "mojolingo/sippy_cup"
+end
