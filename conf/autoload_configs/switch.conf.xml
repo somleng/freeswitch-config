@@ -7,6 +7,10 @@
     <!-- Store the database in memory to avoid disk writes -->
     <param name="core-db-name" value="/dev/shm/core.db" />
 
+    <!--Most channels to allow at once -->
+    <param name="max-sessions" value="$${max_sessions}"/>
+    <param name="sessions-per-second" value="$${sessions_per_second}"/>
+
     <param name="rtp-start-port" value="$${rtp_start_port}"/>
     <param name="rtp-end-port" value="$${rtp_end_port}"/>
   </settings>
