@@ -38,14 +38,13 @@ if [ -z "$SECRETS_BUCKET_NAME" ] || [ -z "$FREESWITCH_CONF_DIR" ] ; then
   exit 1
 fi
 
-if [ ! -d "$LOCAL_FREESWITCH_CONF_DIR" ]; then
-  aws s3 cp --recursive s3://${SECRETS_BUCKET_NAME}/${FREESWITCH_CONF_DIR} $LOCAL_FREESWITCH_CONF_DIR
+config_source="s3://${SECRETS_BUCKET_NAME}/${FREESWITCH_CONF_DIR}"
 
-  if [ $? -ne 0 ]; then
-    rmdir $LOCAL_FREESWITCH_CONF_DIR
-    echo >&2 "error: error downloading freeswitch config to $LOCAL_FREESWITCH_CONF_DIR"
-    exit 1
-  fi
+aws s3 cp --recursive $config_source $LOCAL_FREESWITCH_CONF_DIR
+
+if [ $? -ne 0 ]; then
+  echo >&2 "error: error downloading freeswitch config from $config_source to $LOCAL_FREESWITCH_CONF_DIR"
+  exit 1
 fi
 
 read_dom () {
