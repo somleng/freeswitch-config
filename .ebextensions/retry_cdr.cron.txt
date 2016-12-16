@@ -1,0 +1,3 @@
+# The newline at the end of this file is extremely important.  Cron won't run without it.
+* * * * * root /opt/elasticbeanstalk/bin/retry_cdr.sh > /dev/null
+
