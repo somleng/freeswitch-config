@@ -151,7 +151,9 @@ More importantly though, I found that mapping RTP and SIP ports to the host is n
 
 The `awslogs` log driver should be used instead of the default `json` log driver so that you don't run out of disk space. This can be setup via the `logConfiguration` option. I followed [this guide](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html).
 
-What's important is that you add the managed policy `AmazonEC2ContainerServiceforEC2Role` to the `aws-elasticbeanstalk-ec2-role` (or the role you use for your Elastic Beanstalk instances). You can check that the logging is setup correctly by inspecting the output of `sudo docker inspect <instance> | grep -C 10 LogConfig`.
+The important steps are, creating the log group in the CloudWatch console and adding the managed policy `AmazonEC2ContainerServiceforEC2Role` to the `aws-elasticbeanstalk-ec2-role` (or the role you use for your Elastic Beanstalk instances). Make sure that the log group has the same name that you set in your [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json)
+
+You can check that the logging is setup correctly by inspecting the output of `sudo docker inspect <instance> | grep -C 10 LogConfig`.
 
 #### Inpecting Docker Containers using the AWS ECS Console
 
