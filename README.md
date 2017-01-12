@@ -147,6 +147,16 @@ There [used to be a script](https://github.com/dwilkie/freeswitch-config/commit/
 
 More importantly though, I found that mapping RTP and SIP ports to the host is not required. I couldn't figure out exactly why but my guess is that the FreeSwitch external profile is configured to handle NAT correctly. So it rewrites the SIP packets to handle the NAT using `ext-rtp-ip` and `ext-sip-ip`. What I still don't understand is how the host knows how to send the packets to the container running FreeSwitch. If someone has a better explanation please open a Pull Request.
 
+##### logConfiguration
+
+The `awslogs` log driver should be used instead of the default `json` log driver so that you don't run out of disk space. This can be setup via the `logConfiguration` option. I followed [this guide](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html).
+
+What's important is that you add the managed policy `AmazonEC2ContainerServiceforEC2Role` to the `aws-elasticbeanstalk-ec2-role` (or the role you use for your Elastic Beanstalk instances). You can check that the logging is setup correctly by inspecting the output of `sudo docker inspect <instance> | grep -C 10 LogConfig`.
+
+#### Inpecting Docker Containers using the AWS ECS Console
+
+Under Services->EC2 Container Service, you will see an overview of the clusters. Click on one of the clusters, then on the Tasks tab shows the running tasks. Click on a task to, then under Containers expand the container that you want to inspect. Here you should see Network bindings, Environment Variables, Mount Points and Log Configuration.
+
 #### Security Groups and Networking
 
 [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
