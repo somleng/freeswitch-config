@@ -42,6 +42,14 @@
           "protocol": "udp"
         }
       ],
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+              "awslogs-group": "awslogs-freeswitch",
+              "awslogs-region": "ap-southeast-1",
+              "awslogs-stream-prefix": "awslogs-freeswitch"
+          }
+      },
       "environment": [
         {
           "name": "SECRETS_BUCKET_NAME",
