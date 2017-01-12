@@ -58,6 +58,10 @@
         {
           "name": "FREESWITCH_CONF_DIR",
           "value": "freeswitch/conf"
+        },
+        {
+          "name": "ECS_AVAILABLE_LOGGING_DRIVERS",
+          "value": "[\"json-file\",\"awslogs\"]"
         }
       ]
     }
