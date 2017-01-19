@@ -228,17 +228,18 @@ If the app fails to deploy the following logs are useful:
 1. Configure a local instance of FreeSwitch
 2. Configure a dialplan that will bridge a call to your local FreeSwitch to the remote destination. e.g.
 
-```xml
-<include>
-  <context name="default">
-    <extension name="SimulateProductionCall">
-      <condition field="destination_number" expression="^$${remote_destination}$">
-        <action application="bridge" data="sofia/external/$${remote_destination}@$${remote_external_ip}"/>
-      </condition>
-    </extension>
-  </context>
-</include>
-```
+  ```xml
+  <include>
+    <context name="default">
+      <extension name="SimulateProductionCall">
+        <condition field="destination_number" expression="^$${remote_destination}$">
+          <action application="bridge" data="sofia/external/$${remote_destination}@$${remote_external_ip}"/>
+        </condition>
+      </extension>
+    </context>
+  </include>
+  ```
+
 3. Open up the relevant ports in the FreeSwitch security group. e.g. `udp/5060` and `udp/16384-32768` allowing your local IP.
 4. Using a softphone such as [Zoiper](http://www.zoiper.com/), configure it to connect to your local FreeSwitch instance. Set the IP address to your local IP.
 5. Dial the destination number using your softphone.
