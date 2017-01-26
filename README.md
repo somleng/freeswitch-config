@@ -21,6 +21,12 @@ $ eb platform select
 $ eb create --vpc -i t2.micro --single
 ```
 
+#### Configure IAM Permissions for aws-elasticbeanstalk-ec2-role
+
+Add the following managed policies to the aws-elasticbeanstalk-ec2-role
+
+* AWSElasticBeanstalkMulticontainerDocker
+
 #### Configure a S3 bucket to any sensitive or custom configuration
 
 Adapted from [this blog post](https://blogs.aws.amazon.com/security/post/Tx2B3QUWAA7KOU/How-to-Manage-Secrets-for-Amazon-EC2-Container-Service-Based-Applications-by-Usi)
