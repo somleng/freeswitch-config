@@ -26,6 +26,7 @@ $ eb create --vpc -i t2.micro --single
 Add the following managed policies to the aws-elasticbeanstalk-ec2-role
 
 * AWSElasticBeanstalkMulticontainerDocker
+* AWSElasticBeanstalkWebTier
 
 #### Configure a S3 bucket to any sensitive or custom configuration
 
