@@ -4,7 +4,7 @@ Freeswitch configuration optimized for [mod_rayo](https://freeswitch.org/conflue
 
 ## Deployment
 
-See [DEPLOYMENT](https://github.com/dwilkie/freeswitch-config/tree/master/DEPLOYMENT.md).
+See [DEPLOYMENT](https://github.com/dwilkie/freeswitch-config/tree/master/docs/DEPLOYMENT.md)
 
 ## Testing
 
