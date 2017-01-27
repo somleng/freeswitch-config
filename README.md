@@ -60,7 +60,7 @@ This job puts custom metrics such as disk space utilization and memory used. See
 
 ##### Retrying CDRs
 
-Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/dwilkie/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDR's which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDR's these CDRs via HTTP(S) and delete them from the log directory.
+Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/dwilkie/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDRs which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDRs these CDRs via HTTP(S) and delete them from the log directory.
 
 #### Configure a S3 bucket to any sensitive or custom configuration
 
