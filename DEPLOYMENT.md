@@ -95,6 +95,20 @@ You should see the output similar to the following:
 
 Take note of the `VpcEndpointId` which is required for the next step.
 
+Note you need to add both route tables to the VpcEndpoint. That is the route table for the public subnets and the route table for the private subnets.
+
+To update the VpcEndpoint with the other route table, use the following command:
+
+```
+$ aws ec2 --profile <your-aws-profile> modify-vpc-endpoint --vpc-endpoint-id VPC_ENDPOINT_ID --add-route-table-ids ROUTE_TABLE_ID --region REGION
+```
+
+You can check that your VpcEndpoint is correct in the AWS VPC Console under Endpoints or use the following command:
+
+```
+$ aws ec2 --profile <your-aws-profile> describe-vpc-endpoints --vpc-endpoint-ids VPC_ENDPOINT_ID --region REGION
+```
+
 Next, create a file called `policy.json` with the following contents replacing `SECRETS_BUCKET_NAME` with your the name of your new bucket and `VPC_ID` with the `VpcEndpointId` from the previous step.
 
 This policy prevents unencrypted uploads and restricts access to the bucket to the VPC.
