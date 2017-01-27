@@ -180,8 +180,8 @@ $ aws s3 cp --recursive freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_
 When updating configuration, download your custom configuration from S3, update it, reupload it to S3 and re-deploy the application. The following commands are useful:
 
 ```
-$ aws s3 cp --recursive s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR freeswitch_conf
-$ aws s3 cp --recursive freeswitch_conf_dir s3://SECRETS_BUCKET_NAME/FREESWITCH_CONF_DIR --sse
+$ aws s3 cp --recursive s3://SECRETS_BUCKET_NAME/freeswitch/conf freeswitch_conf
+$ aws s3 cp --recursive freeswitch_conf s3://SECRETS_BUCKET_NAME/freeswitch/conf --sse
 ```
 
 ### Dockerrun.aws.json
