@@ -23,10 +23,44 @@ $ eb create --vpc -i t2.micro --single
 
 #### Configure IAM Permissions for aws-elasticbeanstalk-ec2-role
 
-Add the following managed policies to the aws-elasticbeanstalk-ec2-role
+Add the following managed policies to the `aws-elasticbeanstalk-ec2-role`:
 
 * AWSElasticBeanstalkMulticontainerDocker
 * AWSElasticBeanstalkWebTier
+
+Add the following custom IAM policy to the `aws-elasticbeanstalk-ec2-role`:
+
+* CloudWatchPutMetrics
+
+  ```json
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
+              "Action": [
+                  "cloudwatch:PutMetricData",
+                  "ec2:DescribeTags"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                  "*"
+              ]
+          }
+      ]
+  }
+  ```
+
+#### Cron
+
+Cron jobs are configured in the [.ebextensions](https://github.com/dwilkie/freeswitch-config/tree/master/.ebextensions) folder.
+
+##### CloudWatch Metrics
+
+This job puts custom metrics such as disk space utilization and memory used. See [cloudwatch.config](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/cloudwatch.config) for more info.
+
+##### Retrying CDRs
+
+Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/dwilkie/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDR's which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDR's these CDRs via HTTP(S) and delete them from the log directory.
 
 #### Configure a S3 bucket to any sensitive or custom configuration
 
