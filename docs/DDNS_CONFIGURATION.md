@@ -68,4 +68,4 @@ Note that you need to provide a unique value for the `--statement-id` input para
 
 ## Validating Results
 
-When a new instance is booted within your VPC the lambda function will check if the instance has the `ZONE` and `CNAME` tags and update your hosted zone with the correct records.
+When a new instance is booted within your VPC the lambda function will check if the instance has the `ZONE` and `CNAME` tags and update your hosted zone with the correct records. You can view the logs of the lamda function the CloudWatch Web Console.
