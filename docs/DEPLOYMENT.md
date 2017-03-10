@@ -98,13 +98,21 @@ Under Services->EC2 Container Service, you will see an overview of the clusters.
 
 ### Security Groups and Networking
 
-[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Not all of these ports need to be opened in your security group. For example port 8021 is used for `mod_event_socket` but this port should not be opened on in your security group. Depending on your application you may need to open the following ports in your security group:
+[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Depending on your application you may need to open the following ports in your security group:
 
     udp     16384:32768  (RTP)
     udp     5060         (SIP)
-    tcp     5222         (XMPP / Adhearsion)
+    tcp     5222         (XMPP)
 
-It's highly recommended that you restrict the source of the ports in your security group. For example for SIP and RTP traffic restric the ports to the known SIP provider / telco. For XMPP / Adhearsion you can restrict the port to instances inside the your VPC.
+It's highly recommended that you restrict the source of the ports in your security group. For SIP and RTP traffic restrict the ports to your SIP provider / MNO.
+
+For XMPP you can restrict the access to specific instances inside the your VPC. Find the id of the security group of the instance that you want to connect from. Then in your security group rules set the source to the security group of the connecting instance.
+
+To test connections you can use the `nc` command from the connecting instnace. E.g.
+
+```
+nc -z <internal-freeswitch-hostname> <port-number>
+```
 
 ### FreeSwitch CLI
 
