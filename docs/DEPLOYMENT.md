@@ -118,6 +118,10 @@ nc -z <internal-freeswitch-hostname> <port-number>
 
 See [CI DEPLOYMENT](https://github.com/dwilkie/twilreapi/blob/master/docs/CI_DEPLOYMENT.md)
 
+### Restarting Instances
+
+If you run into problems you can terminate your FreeSWITCH instance using the EC2 Web Console. Be sure *not* to release the Elastic IP. A new instance will be deployed and the Elastic IP should remain the same.
+
 ### FreeSwitch CLI
 
 In order to access the FreeSwitch CLI ssh into your instance, run the docker container which contains FreeSwitch in interactive mode with `/bin/bash`, then from within the container, run the `fs_cli` command specifying the host and password parameters. The host can be found by inspecting the running freeswitch instance's container.
