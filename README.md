@@ -1,5 +1,7 @@
 # freeswitch-config
 
+[![Build Status](https://travis-ci.org/dwilkie/freeswitch-config.svg?branch=master)](https://travis-ci.org/dwilkie/freeswitch-config)
+
 Freeswitch configuration optimized for [mod_rayo](https://freeswitch.org/confluence/display/FREESWITCH/mod_rayo) and [Adhearsion](https://github.com/adhearsion/adhearsion).
 
 ## Deployment
