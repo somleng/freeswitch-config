@@ -12,7 +12,7 @@ if [ "$1" = 'freeswitch' ]; then
   chown -R freeswitch:daemon /etc/freeswitch
 
   chown -R freeswitch:freeswitch /var/lib/freeswitch/storage
-  exec /usr/bin/freeswitch -u freeswitch -g daemon -nonat
+  exec /usr/bin/freeswitch -u freeswitch -g daemon
 fi
 
 exec "$@"
