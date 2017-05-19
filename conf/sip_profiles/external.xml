@@ -6,14 +6,13 @@
   </gateways>
 
   <settings>
-    <param name="ext-rtp-ip" value="$${external_ip}"/>
-    <param name="ext-sip-ip" value="$${external_ip}"/>
-
     <param name="rtp-ip" value="$${local_ip_v4}"/>
     <param name="sip-ip" value="$${local_ip_v4}"/>
 
-    <param name="bind-params" value="transport=udp"/>
+    <param name="ext-rtp-ip" value="autonat:$${external_ip}"/>
+    <param name="ext-sip-ip" value="autonat:$${external_ip}"/>
 
+    <param name="bind-params" value="transport=udp"/>
     <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
     <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
 
