@@ -89,7 +89,7 @@ This policy prevents unencrypted uploads and restricts access to the bucket to t
       "Resource": "arn:aws:s3:::SECRETS_BUCKET_NAME/*",
       "Condition": {
         "StringNotEquals": {
-          "aws:sourceVpce": "VPC_ID"
+          "aws:sourceVpce": "VPCE_ID"
         }
       }
     }

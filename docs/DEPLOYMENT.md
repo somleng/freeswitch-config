@@ -6,7 +6,7 @@ This configuration is optimized for deployment on a Amazon Elastic Beanstalk mul
 
 ### Create a VPC
 
-Create a VPC with 2 public subnets (one for each availability zone)
+Create a VPC with 2 public subnets (one for each availability zone). See [this article](https://github.com/dwilkie/twilreapi/blob/master/docs/AWS_VPC_SETUP.md) for detailed instructions.
 
 ### Configure Dynamic DNS (DDNS)
 
@@ -19,8 +19,9 @@ Follow [this guide](https://github.com/dwilkie/freeswitch-config/tree/master/doc
 Create an Multi-Container Docker Elastic Beanstalk single instance application under your VPC. This will give you an Elastic IP address which won't change if you terminate or scale your instances. When prompted for the VPC details enter the VPC and subnets you created above. The following commands are useful.
 
 ```
-$ eb platform select
-$ eb create --vpc -i t2.micro --single --tags ZONE=<private-hosted-zone-with-trailing-dot>,CNAME=<subdomain-in-private-hosted-zone-with-trailing-dot>
+$ eb init --profile <profile-name>
+$ eb platform select --profile <profile-name>
+$ eb create --vpc -i t2.micro --single --tags ZONE=<private-hosted-zone-with-trailing-dot>,CNAME=<subdomain-in-private-hosted-zone-with-trailing-dot> --profile <profile-name>
 ```
 
 Note that tags can only be set when creating the Elastic Beanstalk Application, so ensure that your `ZONE` and `CNAME` are correct.

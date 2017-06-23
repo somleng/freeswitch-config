@@ -1,7 +1,5 @@
 # Dynamic DNS (DDNS) Configuration
 
-[This article] explains in detail how to setup a DDNS on AWS using a lambda function.
-
 The following steps are adapted from [this article](https://aws.amazon.com/blogs/compute/building-a-dynamic-dns-for-route-53-using-cloudwatch-events-and-lambda/)
 
 ## Configure a Route 53 Private Hosted Zone
