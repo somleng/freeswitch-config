@@ -1,35 +1,11 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "volumes": [
-    {
-      "name": "freeswitch-logs",
-      "host": {
-        "sourcePath": "/var/log/containers/freeswitch"
-      }
-    },
-    {
-      "name": "freeswitch-storage",
-      "host": {
-        "sourcePath": "/var/cache/freeswitch/storage"
-      }
-    }
-  ],
   "containerDefinitions": [
     {
       "name": "freeswitch",
       "image": "dwilkie/freeswitch-rayo",
       "essential": true,
       "memory": 950,
-      "mountPoints": [
-        {
-          "sourceVolume": "freeswitch-logs",
-          "containerPath": "/var/log/freeswitch"
-        },
-        {
-          "sourceVolume": "freeswitch-storage",
-          "containerPath": "/var/lib/freeswitch/storage"
-        }
-      ],
       "portMappings": [
         {
           "hostPort": 5222,
