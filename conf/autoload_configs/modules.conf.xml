@@ -24,6 +24,7 @@
     <load module="mod_sndfile"/>
     <load module="mod_native_file"/>
     <load module="mod_shout"/>
+    <load module="mod_tone_stream"/>
 
     <!-- CDR -->
     <load module="mod_json_cdr"/>
