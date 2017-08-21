@@ -6,13 +6,13 @@ This configuration is optimized for deployment on a Amazon Elastic Beanstalk mul
 
 ### Create a VPC
 
-Create a VPC with 2 public subnets (one for each availability zone). See [this article](https://github.com/dwilkie/twilreapi/blob/master/docs/AWS_VPC_SETUP.md) for detailed instructions.
+Create a VPC with 2 public subnets (one for each availability zone). See [this article](https://github.com/somleng/twilreapi/blob/master/docs/AWS_VPC_SETUP.md) for detailed instructions.
 
 ### Configure Dynamic DNS (DDNS)
 
 In order to address to your FreeSWITCH instance by a static host name from within your VPC your can setup a Dynamic DNS (DDNS). By using a DDNS you can enable managed updates on your FreeSWITCH instance without worrying about updating the host name on other resources that address FreeSWITCH within your VPC.
 
-Follow [this guide](https://github.com/dwilkie/freeswitch-config/tree/master/docs/DDNS_CONFIGURATION.md) to setup a DDNS.
+Follow [this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/DDNS_CONFIGURATION.md) to setup a DDNS.
 
 ### Create a new Elastic Beanstalk Application
 
@@ -57,23 +57,23 @@ Add the following custom IAM policy to the `aws-elasticbeanstalk-ec2-role`:
 
 ### Cron
 
-Cron jobs are configured in the [.ebextensions](https://github.com/dwilkie/freeswitch-config/tree/master/.ebextensions) folder.
+Cron jobs are configured in the [.ebextensions](https://github.com/somleng/freeswitch-config/tree/master/.ebextensions) folder.
 
 #### CloudWatch Metrics
 
-This job puts custom metrics such as disk space utilization and memory used. See [cloudwatch.config](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/cloudwatch.config) for more info.
+This job puts custom metrics such as disk space utilization and memory used. See [cloudwatch.config](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/cloudwatch.config) for more info.
 
 #### Retrying CDRs
 
-Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/dwilkie/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDRs which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/dwilkie/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDRs these CDRs via HTTP(S) and delete them from the log directory.
+Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/somleng/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDRs which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDRs these CDRs via HTTP(S) and delete them from the log directory.
 
 ### Configure a S3 bucket to sensitive or custom configuration
 
-Follow [this guide](https://github.com/dwilkie/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md) to securely store your configuration on S3.
+Follow [this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md) to securely store your configuration on S3.
 
 ### Dockerrun.aws.json
 
-[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) contains the container configuration for FreeSwitch. It's options are passed to the `docker run` command.
+[Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) contains the container configuration for FreeSwitch. It's options are passed to the `docker run` command.
 
 #### Memory
 
@@ -81,13 +81,13 @@ You must specify the memory option in this file. To set it to the maximum value 
 
 #### RTP and SIP Port Mappings
 
-There [used to be a script](https://github.com/dwilkie/freeswitch-config/commit/c5d3ab0545ff729e44f84a2336a432a602e1ee9f) which added RTP port mappings to `Dockerrun.aws.json`. However there is a [limitation](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) on AWS which limits a container instance to 100 reserved ports at a time.
+There [used to be a script](https://github.com/somleng/freeswitch-config/commit/c5d3ab0545ff729e44f84a2336a432a602e1ee9f) which added RTP port mappings to `Dockerrun.aws.json`. However there is a [limitation](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) on AWS which limits a container instance to 100 reserved ports at a time.
 
 More importantly though, I found that mapping RTP and SIP ports to the host is not required. I couldn't figure out exactly why but my guess is that the FreeSwitch external profile is configured to handle NAT correctly. So it rewrites the SIP packets to handle the NAT using `ext-rtp-ip` and `ext-sip-ip`. What I still don't understand is how the host knows how to send the packets to the container running FreeSwitch. If someone has a better explanation please open a Pull Request.
 
 #### logConfiguration
 
-Follow [this guide](https://github.com/dwilkie/freeswitch-config/blob/master/docs/AWS_LOGGING.md) to configure CloudWatch logging. [Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) specifies the log group so this step must done for deployment to be successful.
+Follow [this guide](https://github.com/somleng/freeswitch-config/blob/master/docs/AWS_LOGGING.md) to configure CloudWatch logging. [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) specifies the log group so this step must done for deployment to be successful.
 
 ### Inpecting Docker Containers using the AWS ECS Console
 
@@ -95,7 +95,7 @@ Under Services->EC2 Container Service, you will see an overview of the clusters.
 
 ### Security Groups and Networking
 
-[Dockerrun.aws.json](https://github.com/dwilkie/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Depending on your application you may need to open the following ports in your security group:
+[Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) defines a list of port mappings which map the host to the docker container. Depending on your application you may need to open the following ports in your security group:
 
     udp     16384:32768  (RTP)
     udp     5060         (SIP)
@@ -113,7 +113,7 @@ nc -z <internal-freeswitch-hostname> <port-number>
 
 ### CI Deployment
 
-See [CI DEPLOYMENT](https://github.com/dwilkie/twilreapi/blob/master/docs/CI_DEPLOYMENT.md)
+See [CI DEPLOYMENT](https://github.com/somleng/twilreapi/blob/master/docs/CI_DEPLOYMENT.md)
 
 ### Restarting Instances
 
