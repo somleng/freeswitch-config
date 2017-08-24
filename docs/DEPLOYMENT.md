@@ -89,6 +89,18 @@ More importantly though, I found that mapping RTP and SIP ports to the host is n
 
 Follow [this guide](https://github.com/somleng/freeswitch-config/blob/master/docs/AWS_LOGGING.md) to configure CloudWatch logging. [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) specifies the log group so this step must done for deployment to be successful.
 
+#### Volumes
+
+The following [managed volumes](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html) are configured in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json). Managed volumes are managed by the Docker daemon and are deleted when no longer referenced by a container.
+
+##### freeswitch-recordings
+
+This is used as a shared volume between the FreeSWITCH docker container and the [docker-s3-backup](https://github.com/somleng/docker-s3-backup) container. [Rayo](https://github.com/somleng/freeswitch-config/blob/master/conf/autoload_configs/rayo.conf.xml) should be configured to write recordings to this directory. The docker-s3-backup docker image then uses [s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to sync these recordings to s3.
+
+To set this up create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md).
+
+Then in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) set the correct values for `S3_PATH` and `LOCAL_DIR`.
+
 ### Inpecting Docker Containers using the AWS ECS Console
 
 Under Services->EC2 Container Service, you will see an overview of the clusters. Click on one of the clusters, then on the Tasks tab shows the running tasks. Click on a task to, then under Containers expand the container that you want to inspect. Here you should see Network bindings, Environment Variables, Mount Points and Log Configuration.
