@@ -51,7 +51,7 @@
     },
     {
       "name": "docker-s3-sync",
-      "image": "dwilkie/docker-s3-sync",
+      "image": "dwilkie/docker-s3-backup",
       "cpu": 100,
       "memory": 100,
       "essential": true,
