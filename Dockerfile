@@ -21,6 +21,8 @@ COPY conf /etc/freeswitch
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
 RUN touch /var/log/freeswitch/freeswitch.log
+RUN mkdir /freeswitch-recordings
+RUN chown freeswitch:daemon /freeswitch-recordings
 RUN chown freeswitch:freeswitch /var/log/freeswitch/freeswitch.log
 
 # Install the entrypoint script
