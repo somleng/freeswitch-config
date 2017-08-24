@@ -55,6 +55,14 @@
       "cpu": 100,
       "memory": 100,
       "essential": true,
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+              "awslogs-group": "awslogs-docker-s3-sync",
+              "awslogs-region": "ap-southeast-1",
+              "awslogs-stream-prefix": "awslogs-docker-s3-sync"
+          }
+      },
       "mountPoints": [
         {
           "sourceVolume": "freeswitch-recordings",
