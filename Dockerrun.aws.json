@@ -11,7 +11,7 @@
       "name": "freeswitch",
       "image": "dwilkie/freeswitch-rayo",
       "essential": true,
-      "memory": 850,
+      "memory": 550,
       "portMappings": [
         {
           "hostPort": 5222,
@@ -52,8 +52,7 @@
     {
       "name": "docker-s3-sync",
       "image": "dwilkie/docker-s3-backup",
-      "cpu": 100,
-      "memory": 100,
+      "memory": 400,
       "essential": true,
       "logConfiguration": {
           "logDriver": "awslogs",
