@@ -8,4 +8,9 @@
     <listen type="c2s" port="$${rayo_port}" address="$${rayo_ip}" acl=""/>
     <users><user name="$${rayo_user}" password="$${rayo_password}"/></users>
   </domain>
+
+  <!-- this should match the value in Dockerrun.aws.json -->
+  <record>
+    <param name="record-file-prefix" value="$${rayo-record-directory}/"/>
+  </record>
 </configuration>
