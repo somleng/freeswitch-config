@@ -53,7 +53,7 @@
       "name": "docker-s3-sync",
       "image": "dwilkie/docker-s3-backup",
       "memory": 200,
-      "essential": true,
+      "essential": false,
       "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
@@ -69,10 +69,6 @@
         }
       ],
       "environment": [
-        {
-          "name": "SLEEP_BETWEEN_SYNCS",
-          "value": "1"
-        },
         {
           "name": "S3_PATH",
           "value": "s3://somleng-recordings/recordings"
