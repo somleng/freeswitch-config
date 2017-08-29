@@ -51,7 +51,7 @@
     },
     {
       "name": "aws-cli",
-      "image": "garland/aws-cli-docker:latest",
+      "image": "garland/aws-cli-docker",
       "memory": 200,
       "essential": false,
       "logConfiguration": {
