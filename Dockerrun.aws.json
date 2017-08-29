@@ -48,33 +48,6 @@
           "value": "freeswitch/conf"
         }
       ]
-    },
-    {
-      "name": "aws-cli",
-      "image": "garland/aws-cli-docker",
-      "memory": 200,
-      "essential": false,
-      "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-              "awslogs-group": "awslogs-docker-s3-sync",
-              "awslogs-region": "ap-southeast-1",
-              "awslogs-stream-prefix": "awslogs-docker-s3-sync"
-          }
-      },
-      "mountPoints": [
-        {
-          "sourceVolume": "freeswitch-recordings",
-          "containerPath": "/data/freeswitch-recordings"
-        }
-      ],
-      "entryPoint": [
-        "sh",
-        "-c"
-      ],
-      "command": [
-        "tail /dev/null"
-      ]
     }
   ]
 }
