@@ -3,7 +3,7 @@
   "volumes": [
     {
       "name": "freeswitch-recordings",
-      "host": {}
+      "host": "/ecs/data/freeswitch-recordings"
     }
   ],
   "containerDefinitions": [
@@ -50,8 +50,8 @@
       ]
     },
     {
-      "name": "docker-s3-sync",
-      "image": "dwilkie/docker-s3-backup",
+      "name": "aws-cli",
+      "image": "garland/aws-cli-docker",
       "memory": 200,
       "essential": false,
       "logConfiguration": {
@@ -65,17 +65,7 @@
       "mountPoints": [
         {
           "sourceVolume": "freeswitch-recordings",
-          "containerPath": "/freeswitch-recordings"
-        }
-      ],
-      "environment": [
-        {
-          "name": "S3_PATH",
-          "value": "s3://somleng-recordings/recordings"
-        },
-        {
-          "name": "LOCAL_DIR",
-          "value": "/freeswitch-recordings"
+          "containerPath": "/data/freeswitch-recordings"
         }
       ]
     }
