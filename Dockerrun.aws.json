@@ -3,7 +3,7 @@
   "volumes": [
     {
       "name": "freeswitch-recordings",
-      "host": "/ecs/data/freeswitch-recordings"
+      "host": {}
     }
   ],
   "containerDefinitions": [
