@@ -51,7 +51,7 @@
     },
     {
       "name": "aws-cli",
-      "image": "garland/aws-cli-docker",
+      "image": "dwilkie/docker-s3-backup",
       "memory": 200,
       "essential": false,
       "logConfiguration": {
