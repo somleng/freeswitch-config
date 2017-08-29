@@ -67,6 +67,13 @@
           "sourceVolume": "freeswitch-recordings",
           "containerPath": "/data/freeswitch-recordings"
         }
+      ],
+      "entryPoint": [
+        "sh",
+        "-c"
+      ],
+      "command": [
+        "tail /dev/null"
       ]
     }
   ]
