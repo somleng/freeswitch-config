@@ -63,9 +63,15 @@ Cron jobs are configured in the [.ebextensions](https://github.com/somleng/frees
 
 This job puts custom metrics such as disk space utilization and memory used. See [cloudwatch.config](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/cloudwatch.config) for more info.
 
-#### Retrying CDRs
+#### retry_cdr.sh
 
 Depending on the configuration specified in [json_cdr.conf.xml](https://github.com/somleng/freeswitch-config/blob/master/conf/autoload_configs/json_cdr.conf.xml) CDRs which fail to log via HTTP(S) will be stored in the log directory which can fill up disk space. The [retry_cdr.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/retry_cdr.sh) script will retry logging these CDRs these CDRs via HTTP(S) and delete them from the log directory.
+
+#### backup_recordings.sh
+
+[backup_recordings.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/backup_recordings.sh) uses [aws s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to backup recordings to S3. To enable backups set your recordings bucket path in the `org.somleng.freeswitch.recordings.s3-path` label defined in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json).
+
+Be sure to create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md).
 
 ### Configure a S3 bucket to sensitive or custom configuration
 
@@ -95,11 +101,7 @@ The following [managed volumes](http://docs.aws.amazon.com/AmazonECS/latest/deve
 
 ##### freeswitch-recordings
 
-This is used as a shared volume between the FreeSWITCH docker container and the [docker-s3-backup](https://github.com/somleng/docker-s3-backup) container. [Rayo](https://github.com/somleng/freeswitch-config/blob/master/conf/autoload_configs/rayo.conf.xml) should be configured to write recordings to this directory. The docker-s3-backup docker image then uses [s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to sync these recordings to s3.
-
-To set this up create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md).
-
-Then in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json) set the correct values for `S3_PATH` and `LOCAL_DIR`.
+`freeswitch-recordings` is a [managed volume](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html) as defined in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json). [mod_rayo](https://github.com/somleng/freeswitch-config/blob/master/conf/autoload_configs/rayo.conf.xml) should be configured to write recordings to this directory. The [backup_recordings.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/backup_recordings.sh) script runs via cron to upload the recordings to S3.
 
 ### Inpecting Docker Containers using the AWS ECS Console
 
@@ -120,7 +122,7 @@ For XMPP you can restrict the access to specific instances inside the your VPC. 
 To test connections you can use the `nc` command from the connecting instnace. E.g.
 
 ```
-nc -z <internal-freeswitch-hostname> <port-number>
+$ nc -z <internal-freeswitch-hostname> <port-number>
 ```
 
 ### CI Deployment
