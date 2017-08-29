@@ -17,4 +17,4 @@ LOCAL_PATH=$(docker inspect --format "{{ index .Config.Labels \"${CONTAINER_PATH
 
 S3_PATH=$(docker inspect --format "{{ index .Config.Labels \"${S3_PATH_KEY}\"}}" $FREESWITCH_CONTAINER_ID)
 
-docker run --volumes-from $FREESWITCH_CONTAINER_ID $AWS_DOCKER_IMAGE aws s3 sync $LOCAL_PATH $S3_PATH --sse
+docker run --volumes-from $FREESWITCH_CONTAINER_ID:ro $AWS_DOCKER_IMAGE aws s3 sync $LOCAL_PATH $S3_PATH --sse
