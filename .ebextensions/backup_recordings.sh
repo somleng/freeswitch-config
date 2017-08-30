@@ -9,6 +9,7 @@ AWS_DOCKER_IMAGE="garland/aws-cli-docker"
 # FreeSWITCH Constants. These should match the valus in Dockerrun.aws.json
 FREESWITCH_CONTAINER_NAME="freeswitch"
 S3_PATH_KEY="org.somleng.freeswitch.recordings.s3-path"
+CONTAINER_PATH_KEY="org.somleng.freeswitch.recordings.container-path"
 
 # Local Constants
 MOUNTED_CONTAINER_PATH="/data/freeswitch-mounted"
@@ -32,8 +33,10 @@ if [[ -z "$freeswitch_container_id" ]]; then
     # flatten the files and sync them to s3
     docker run $docker_volumes_command $AWS_DOCKER_IMAGE /bin/sh -c "mkdir -p $SCRATCH_SPACE && find $MOUNTED_CONTAINER_PATH -type f -exec cp {} $SCRATCH_SPACE \; && aws s3 sync ${SCRATCH_SPACE} ${s3_path} --sse"
   else
-    # sync the current volume
+    # get the container path for the FreeSWITCH container
+    mounted_container_path=$(docker inspect --format "{{ index .Config.Labels \"${CONTAINER_PATH_KEY}\"}}" $freeswitch_container_id)
 
-    docker run --volumes-from $freeswitch_container_id:ro $AWS_DOCKER_IMAGE aws s3 sync $MOUNTED_CONTAINER_PATH $s3_path --sse
+    # mount the volume as read only and sync it with s3
+    docker run --volumes-from $freeswitch_container_id:ro $AWS_DOCKER_IMAGE aws s3 sync $mounted_container_path $s3_path --sse
   fi
 fi

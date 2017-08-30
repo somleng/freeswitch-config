@@ -49,7 +49,8 @@
         }
       ],
       "dockerLabels": {
-        "org.somleng.freeswitch.recordings.s3-path": "s3://somleng-recordings/recordings"
+        "org.somleng.freeswitch.recordings.s3-path": "s3://somleng-recordings/recordings",
+        "org.somleng.freeswitch.recordings.container-path": "/freeswitch-recordings"
       }
     }
   ]
