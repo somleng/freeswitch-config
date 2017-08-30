@@ -16,7 +16,7 @@ SCRATCH_SPACE="/data/scratch_space"
 
 freeswitch_container_id=$(docker ps -aqf "label=${AWS_ECS_CONTAINER_NAME_KEY}=${FREESWITCH_CONTAINER_NAME}")
 
-if [[ -z "$freeswitch_container_id" ]]
+if [[ -z "$freeswitch_container_id" ]]; then
   s3_path=$(docker inspect --format "{{ index .Config.Labels \"${S3_PATH_KEY}\"}}" $freeswitch_container_id)
 
   if [ "$1" = '--all' ]; then
