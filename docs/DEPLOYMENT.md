@@ -71,7 +71,50 @@ Depending on the configuration specified in [json_cdr.conf.xml](https://github.c
 
 [backup_recordings.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/backup_recordings.sh) uses [aws s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to backup recordings to S3. To enable backups set your recordings bucket path in the `org.somleng.freeswitch.recordings.s3-path` label defined in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json).
 
-Be sure to create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md).
+##### S3 Bucket for storing recordings
+
+Create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md) to make the bucket accessible from the VPC.
+
+##### Create a SNS Topic to send notifications for new recordings
+
+Adapted from [this article](http://docs.aws.amazon.com/cli/latest/userguide/cli-sqs-queue-sns-topic.html#cli-create-sns-topic).
+
+###### Create a new topic
+
+```
+$ aws sns create-topic --name new-recording --profile <profile-name>
+```
+
+```json
+{
+  "TopicArn": "TOPIC_ARN"
+}
+```
+
+###### Subscribe to the topic
+
+```
+$ aws sns subscribe --topic-arn "TOPIC_ARN" --protocol https --notification-endpoint "https://user:password@somleng.example.org/api/admin/aws_sns_messages" --profile <profile-name>
+```
+
+Replace `user` and `password` with the [account details authorized to publish SES messages](https://github.com/somleng/twilreapi/blob/master/docs/DEPLOYMENT.md#setup-an-admin-account-for-managing-aws-sns-messages). Replace `somleng.example.org` with your [Twilreapi host](https://github.com/somleng/twilreapi).
+
+```json
+{
+  "SubscriptionArn": "pending confirmation"
+}
+```
+
+###### Confirm the subscription
+
+SSH into your [Twilreapi host](https://github.com/somleng/twilreapi) and from the Rails Console find the `SubscribeURL` for the `AwsSnsMessage::SubscriptionConfirmation`
+
+```ruby
+irb(main):001:0> AwsSnsMessage::SubscriptionConfirmation.last.payload["SubscribeURL"]
+=> "https://sns.ap-southeast-1.amazonaws.com/subscribe-url"
+```
+
+Visit the confirmation URL in your browser to confirm the subscription.
 
 ### Configure a S3 bucket to sensitive or custom configuration
 
