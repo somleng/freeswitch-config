@@ -1,3 +1,3 @@
 # The newline at the end of this file is extremely important.  Cron won't run without it.
-* * * * * root /opt/elasticbeanstalk/bin/backup_recordings.sh > /dev/null
+* * * * * root /opt/elasticbeanstalk/bin/backup_recordings.sh >> /var/log/backup_recordings.log 2>&1
 
