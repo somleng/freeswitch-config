@@ -36,7 +36,7 @@ if [[ -n "$freeswitch_container_id" ]]; then
     printf -v docker_volumes_command -- "-v %s:${MOUNTED_CONTAINER_PATH}/%s:ro " "${docker_volumes[@]}"
 
     # flatten the files and sync them to s3
-    docker run $docker_volumes_command $AWS_DOCKER_IMAGE /bin/sh -c "mkdir -p $SCRATCH_SPACE && find $MOUNTED_CONTAINER_PATH -type f -exec cp {} $SCRATCH_SPACE \; && aws s3 sync ${SCRATCH_SPACE} ${s3_path} --sse"
+    docker run --rm $docker_volumes_command $AWS_DOCKER_IMAGE /bin/sh -c "mkdir -p $SCRATCH_SPACE && find $MOUNTED_CONTAINER_PATH -type f -exec cp {} $SCRATCH_SPACE \; && aws s3 sync ${SCRATCH_SPACE} ${s3_path} --sse"
   else
     # Sync only current volume
 
@@ -46,6 +46,6 @@ if [[ -n "$freeswitch_container_id" ]]; then
     echo "Syncing FreeSWITCH volume at ${mounted_container_path} set from ${CONTAINER_PATH_KEY} in Dockerrun.aws.json"
 
     # mount the volume as read only and sync it with s3
-    docker run --volumes-from $freeswitch_container_id:ro $AWS_DOCKER_IMAGE aws s3 sync $mounted_container_path $s3_path --sse
+    docker run --rm --volumes-from $freeswitch_container_id:ro $AWS_DOCKER_IMAGE aws s3 sync $mounted_container_path $s3_path --sse
   fi
 fi

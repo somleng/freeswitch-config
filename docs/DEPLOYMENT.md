@@ -71,7 +71,7 @@ Depending on the configuration specified in [json_cdr.conf.xml](https://github.c
 
 [backup_recordings.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/backup_recordings.sh) uses [aws s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to backup recordings to S3. To enable backups set your recordings bucket path in the `org.somleng.freeswitch.recordings.s3-path` label defined in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json).
 
-##### S3 Bucket for storing recordings
+##### Create a S3 Bucket for storing recordings
 
 Create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md) to make the bucket accessible from the VPC.
 
@@ -84,6 +84,8 @@ Adapted from [this article](http://docs.aws.amazon.com/cli/latest/userguide/cli-
 ```
 $ aws sns create-topic --name new-recording --profile <profile-name>
 ```
+
+You should get a response like the following:
 
 ```json
 {
@@ -98,6 +100,8 @@ $ aws sns subscribe --topic-arn "TOPIC_ARN" --protocol https --notification-endp
 ```
 
 Replace `user` and `password` with the [account details authorized to publish SES messages](https://github.com/somleng/twilreapi/blob/master/docs/DEPLOYMENT.md#setup-an-admin-account-for-managing-aws-sns-messages). Replace `somleng.example.org` with your [Twilreapi host](https://github.com/somleng/twilreapi).
+
+You should get a response like the following:
 
 ```json
 {
@@ -115,6 +119,31 @@ irb(main):001:0> AwsSnsMessage::SubscriptionConfirmation.last.payload["Subscribe
 ```
 
 Visit the confirmation URL in your browser to confirm the subscription.
+
+###### Update the topic Access Policy
+
+Adapted from [this article](http://docs.aws.amazon.com/AmazonS3/latest/dev/ways-to-add-notification-config-to-bucket.html).
+
+Modify your SNS Topic Access Policy from the AWS Web Console SNS -> Edit Topic Policy.
+
+Replace the conditions section with the following:
+
+```json
+"Condition": {
+  "ArnLike": {
+  "aws:SourceArn": "arn:aws:s3:*:*:bucket-name"
+}
+```
+
+This allows the topic to subscribe to the bucket.
+
+###### Update the bucket configuration to register the SNS topic for bucket events
+
+Adapted from [this article](http://docs.aws.amazon.com/AmazonS3/latest/dev/ways-to-add-notification-config-to-bucket.html).
+
+Using the AWS Web Console under S3 -> Bucket -> Properties -> Events, add a new Notification.
+
+Under Events select ObjectCreate (All) any any other events you want to subscribe to. Optionally select a prefix and suffix, then select the SNS Topic you configured in the steps above.
 
 ### Configure a S3 bucket to sensitive or custom configuration
 
