@@ -82,7 +82,7 @@ Adapted from [this article](http://docs.aws.amazon.com/cli/latest/userguide/cli-
 ###### Create a new topic
 
 ```
-$ aws sns create-topic --name new-recording --profile <profile-name>
+$ aws sns create-topic --name new-recording --profile <profile-name> --region <region>
 ```
 
 You should get a response like the following:
@@ -96,7 +96,7 @@ You should get a response like the following:
 ###### Subscribe to the topic
 
 ```
-$ aws sns subscribe --topic-arn "TOPIC_ARN" --protocol https --notification-endpoint "https://user:password@somleng.example.org/api/admin/aws_sns_messages" --profile <profile-name>
+$ aws sns subscribe --topic-arn "TOPIC_ARN" --protocol https --notification-endpoint "https://user:password@somleng.example.org/api/admin/aws_sns_messages" --profile <profile> --region <region>
 ```
 
 Replace `user` and `password` with the [account details authorized to publish SES messages](https://github.com/somleng/twilreapi/blob/master/docs/DEPLOYMENT.md#setup-an-admin-account-for-managing-aws-sns-messages). Replace `somleng.example.org` with your [Twilreapi host](https://github.com/somleng/twilreapi).
@@ -129,13 +129,15 @@ Modify your SNS Topic Access Policy from the AWS Web Console SNS -> Edit Topic P
 Replace the conditions section with the following:
 
 ```json
-"Condition": {
-  "ArnLike": {
-  "aws:SourceArn": "arn:aws:s3:*:*:bucket-name"
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:s3:*:*:bucket-name"
+        }
+      }
 }
 ```
 
-This allows the topic to subscribe to the bucket.
+Replace `arn:aws:s3:*:*:bucket-name` with the bucket name. This allows the topic to subscribe to the bucket.
 
 ###### Update the bucket configuration to register the SNS topic for bucket events
 
@@ -144,6 +146,13 @@ Adapted from [this article](http://docs.aws.amazon.com/AmazonS3/latest/dev/ways-
 Using the AWS Web Console under S3 -> Bucket -> Properties -> Events, add a new Notification.
 
 Under Events select ObjectCreate (All) any any other events you want to subscribe to. Optionally select a prefix and suffix, then select the SNS Topic you configured in the steps above.
+
+This will create a Test Notification which you should then be able to find from the console:
+
+```ruby
+irb(main):001:0> AwsSnsMessage::Notification.last.payload["Subject"]
+=> "Amazon S3 Notification"
+```
 
 ### Configure a S3 bucket to sensitive or custom configuration
 
