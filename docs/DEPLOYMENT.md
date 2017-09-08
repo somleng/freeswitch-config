@@ -71,6 +71,8 @@ Depending on the configuration specified in [json_cdr.conf.xml](https://github.c
 
 [backup_recordings.sh](https://github.com/somleng/freeswitch-config/blob/master/.ebextensions/backup_recordings.sh) uses [aws s3 sync](http://docs.aws.amazon.com/cli/latest/reference/s3/sync.html) to backup recordings to S3. To enable backups set your recordings bucket path in the `org.somleng.freeswitch.recordings.s3-path` label defined in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json).
 
+Note, you can also turn off this script by setting `org.somleng.freeswitch.recordings.disable_uploads` equal to `1` in [Dockerrun.aws.json](https://github.com/somleng/freeswitch-config/blob/master/Dockerrun.aws.json).
+
 ##### Create a S3 Bucket for storing recordings
 
 Create an S3 bucket for the recordings and apply the policies as described [in this guide](https://github.com/somleng/freeswitch-config/tree/master/docs/S3_CONFIGURATION.md) to make the bucket accessible from the VPC.
