@@ -19,7 +19,7 @@ SCRATCH_SPACE="/data/scratch_space"
 
 # Start of script
 
-freeswitch_container_id=$(docker ps -aqf "label=${AWS_ECS_CONTAINER_NAME_KEY}=${FREESWITCH_CONTAINER_NAME}")
+freeswitch_container_id=$(docker ps -qf "label=${AWS_ECS_CONTAINER_NAME_KEY}=${FREESWITCH_CONTAINER_NAME}")
 
 if [[ -z "$freeswitch_container_id" ]]; then
   echo "No running container found with the name '${FREESWITCH_CONTAINER_NAME}'"
