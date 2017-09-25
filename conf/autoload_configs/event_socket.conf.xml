@@ -1,5 +1,9 @@
 <configuration name="event_socket.conf" description="Socket Client">
   <settings>
+    <!-- See
+      https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/event_handlers/mod_event_socket/conf/autoload_configs/event_socket.conf.xml
+      for additional configuration options
+    -->
     <param name="nat-map" value="false"/>
     <param name="listen-ip" value="0.0.0.0"/>
     <param name="listen-port" value="8021"/>
