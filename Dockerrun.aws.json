@@ -40,12 +40,8 @@
       ],
       "environment": [
         {
-          "name": "SECRETS_BUCKET_NAME",
-          "value": "somlengsecrets"
-        },
-        {
-          "name": "FREESWITCH_CONF_DIR",
-          "value": "freeswitch/conf"
+          "name": "FREESWITCH_CONFIG_S3_PATH",
+          "value": "s3://somlengsecrets/freeswitch/conf"
         }
       ],
       "dockerLabels": {

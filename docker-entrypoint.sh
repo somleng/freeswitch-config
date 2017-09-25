@@ -1,21 +1,33 @@
 #!/bin/bash
 
+# Local constants
+FREESWITCH_CONTAINER_CONFIG_DIRECTORY="/etc/freeswitch/"
+FREESWITCH_CONTAINER_STORAGE_DIRECTORY="/var/lib/freeswitch/storage"
+FREESWITCH_CONTAINER_RECORDINGS_DIRECTORY="/freeswitch-recordings"
+FREESWITCH_CONTAINER_BINARY="/usr/bin/freeswitch"
+FREESWITCH_USER="freeswitch"
+FREESWITCH_GROUP="daemon"
+
 set -e
 
 if [ "$1" = 'freeswitch' ]; then
-  if [ -z "$SECRETS_BUCKET_NAME" ] || [ -z "$FREESWITCH_CONF_DIR" ] ; then
-    echo >&2 'error: missing SECRETS_BUCKET_NAME and/or FREESWITCH_CONF_DIR environment variables'
-    exit 1
+  if [ -n "$FREESWITCH_CONFIG_S3_PATH" ]; then
+    # Pull FreeSWITCH configuration from S3
+    aws s3 cp --recursive ${FREESWITCH_CONFIG_S3_PATH} ${FREESWITCH_CONTAINER_CONFIG_DIRECTORY}
   fi
 
-  aws s3 cp --recursive s3://${SECRETS_BUCKET_NAME}/${FREESWITCH_CONF_DIR} /etc/freeswitch/
+  # Setup recordings directory
+  mkdir -p ${FREESWITCH_CONTAINER_RECORDINGS_DIRECTORY}
+  chown -R "${FREESWITCH_USER}:${FREESWITCH_GROUP}" ${FREESWITCH_CONTAINER_RECORDINGS_DIRECTORY}
 
-  mkdir -p /freeswitch-recordings
-  chown -R freeswitch:daemon /freeswitch-recordings
+  # Setup config directory
+  chown -R "${FREESWITCH_USER}:${FREESWITCH_GROUP}" ${FREESWITCH_CONTAINER_CONFIG_DIRECTORY}
 
-  chown -R freeswitch:daemon /etc/freeswitch
-  chown -R freeswitch:freeswitch /var/lib/freeswitch/storage
-  exec /usr/bin/freeswitch -u freeswitch -g daemon
+  # Setup storage directory
+  chown -R "${FREESWITCH_USER}:${FREESWITCH_USER}" ${FREESWITCH_CONTAINER_STORAGE_DIRECTORY}
+
+  # execute FreeSWITCH
+  exec ${FREESWITCH_CONTAINER_BINARY} -u ${FREESWITCH_USER} -g ${FREESWITCH_GROUP}
 fi
 
 exec "$@"
