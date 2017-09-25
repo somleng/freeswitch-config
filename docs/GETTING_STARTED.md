@@ -9,7 +9,7 @@ Follow the official [Docker documentation](https://docs.docker.com/engine/instal
 ## Pull and run the image
 
 ```
-$ sudo docker run --rm --name fs-somleng -d -p 5222:5222/tcp -p 5060:5060/udp dwilkie/freeswitch-rayo
+$ sudo docker run --rm --name fs-somleng -d -p 5060:5060/udp dwilkie/freeswitch-rayo
 ```
 
 ## Check the container is running
