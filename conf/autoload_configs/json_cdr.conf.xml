@@ -5,7 +5,7 @@
       for more configuration options
     -->
 
-    <param name="url" value="http://localhost:3000/api/admin/call_data_records"/>
+    <param name="url" value="http://twilreapi:3000/api/admin/call_data_records"/>
 
     <!--
       Authentication
