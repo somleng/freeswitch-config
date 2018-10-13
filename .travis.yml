@@ -1,1 +1,8 @@
-language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t somleng/somleng-freeswitch
+
+script:
+  - docker run --rm somleng/somleng-freeswitch freeswitch
