@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "freeswitch",
-      "image": "dwilkie/freeswitch-rayo",
+      "image": "somleng/somleng-freeswitch",
       "essential": true,
       "memory": 750,
       "portMappings": [
