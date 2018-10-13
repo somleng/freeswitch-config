@@ -1,20 +1,10 @@
+<!-- https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/event_handlers/mod_json_cdr/conf/autoload_configs/json_cdr.conf.xml -->
 <configuration name="json_cdr.conf" description="JSON CDR">
   <settings>
-    <!--
-      See https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/event_handlers/mod_json_cdr/conf/autoload_configs/json_cdr.conf.xml
-      for more configuration options
-    -->
-
-    <param name="url" value="http://twilreapi:3000/api/admin/call_data_records"/>
-
-    <!--
-      Authentication
-      <param name="auth-scheme" value="basic"/>
-      <param name="cred" value="user:password"/>
-
-      Retries
-      <param name="retries" value="100"/>
-      <param name="delay" value="5000"/>
-    -->
+    <param name="url" value="$${mod_json_cdr_url}"/>
+    <param name="auth-scheme" value="$${mod_json_cdr_auth_scheme}"/>
+    <param name="cred" value="$${mod_json_cdr_cred}"/>
+    <param name="retries" value="$${mod_json_cdr_retries}"/>
+    <param name="delay" value="$${mod_json_cdr_delay}"/>
   </settings>
 </configuration>

@@ -1,0 +1,47 @@
+<!--
+  Static config goes here. For dynamic content use environment variables. See env.xml for details.
+  Do NOT comment out variables in this file as it will have no affect.
+-->
+
+<!-- DTMF Settings -->
+<X-PRE-PROCESS cmd="set" data="start_inband_dtmf_detection=true"/>
+
+<!-- IP Addresses -->
+<X-PRE-PROCESS cmd="set" data="external_ip=0.0.0.0"/>
+
+<!-- Codec Preferences -->
+<X-PRE-PROCESS cmd="set" data="global_codec_prefs=G722,PCMU,PCMA,GSM"/>
+
+<!-- switch.xml.conf -->
+<X-PRE-PROCESS cmd="set" data="core_colorize_console=true"/>
+<X-PRE-PROCESS cmd="set" data="core_loglevel=debug"/>
+<X-PRE-PROCESS cmd="set" data="core_db_name=/dev/shm/core.db"/>
+<X-PRE-PROCESS cmd="set" data="core_max_sessions=1000"/>
+<X-PRE-PROCESS cmd="set" data="core_sessions_per_second=30"/>
+<X-PRE-PROCESS cmd="set" data="core_rtp_start_port=16384"/>
+<X-PRE-PROCESS cmd="set" data="core_rtp_end_port=32768"/>
+
+<!-- mod_json_cdr -->
+<X-PRE-PROCESS cmd="set" data="mod_json_cdr_url=https://www.example.com/path"/>
+<X-PRE-PROCESS cmd="set" data="mod_json_cdr_cred=user:password"/>
+<X-PRE-PROCESS cmd="set" data="mod_json_cdr_auth_scheme=basic"/>
+<X-PRE-PROCESS cmd="set" data="mod_json_cdr_retries=10"/>
+<X-PRE-PROCESS cmd="set" data="mod_json_cdr_delay=5000"/>
+
+<!-- mod_event_socket -->
+<X-PRE-PROCESS cmd="set" data="mod_event_socket_nat_map=false"/>
+<X-PRE-PROCESS cmd="set" data="mod_event_socket_listen_ip=0.0.0.0"/>
+<X-PRE-PROCESS cmd="set" data="mod_event_socket_listen_port=8021"/>
+<X-PRE-PROCESS cmd="set" data="mod_event_socket_password=ClueCon"/>
+<X-PRE-PROCESS cmd="set" data="mod_event_socket_apply_inbound_acl=localnet.auto"/>
+
+<!-- mod_rayo -->
+<X-PRE-PROCESS cmd="set" data="mod_rayo_max_idle_sec=300"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_add_variables_to_events=true"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_domain_name=rayo.somleng.org"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_shared_secret=secret"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_ip=0.0.0.0"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_port=5222"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_user=user"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_password=password"/>
+<X-PRE-PROCESS cmd="set" data="mod_rayo_record_file_prefix=/freeswitch-recordings"/>

@@ -1,16 +1,19 @@
+<!-- https://freeswitch.org/stash/projects/FS/repos/freeswitch/browse/src/mod/event_handlers/mod_rayo/conf/autoload_configs/rayo.conf.xml -->
 <configuration name="rayo.conf" description="Rayo server config">
   <settings>
-    <param name="max-idle-sec" value="300"/>
-    <param name="add-variables-to-events" value="true"/>
+    <param name="max-idle-sec" value="$${mod_rayo_max_idle_sec}"/>
+    <param name="add-variables-to-events" value="$${mod_rayo_add_variables_to_events}"/>
   </settings>
 
-  <domain name="$${rayo_domain_name}" shared-secret="$${rayo_shared_secret}">
-    <listen type="c2s" port="$${rayo_port}" address="$${rayo_ip}" acl=""/>
-    <users><user name="$${rayo_user}" password="$${rayo_password}"/></users>
+  <domain name="$${mod_rayo_domain_name}" shared-secret="$${mod_rayo_shared_secret}">
+    <listen type="c2s" port="$${mod_rayo_port}" address="$${mod_rayo_ip}" acl=""/>
+    <users>
+      <user name="$${mod_rayo_user}" password="$${mod_rayo_password}"/>
+    </users>
   </domain>
 
   <!-- this should match the value in Dockerrun.aws.json -->
   <record>
-    <param name="record-file-prefix" value="$${rayo-record-directory}/"/>
+    <param name="record-file-prefix" value="$${mod_rayo_record_file_prefix}/"/>
   </record>
 </configuration>
