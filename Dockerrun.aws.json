@@ -1,11 +1,5 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "volumes": [
-    {
-      "name": "freeswitch-recordings",
-      "host": {}
-    }
-  ],
   "containerDefinitions": [
     {
       "name": "freeswitch",
@@ -23,31 +17,7 @@
           "containerPort": 5060,
           "protocol": "udp"
         }
-      ],
-      "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-              "awslogs-group": "awslogs-freeswitch",
-              "awslogs-region": "ap-southeast-1",
-              "awslogs-stream-prefix": "awslogs-freeswitch"
-          }
-      },
-      "mountPoints": [
-        {
-          "sourceVolume": "freeswitch-recordings",
-          "containerPath": "/freeswitch-recordings"
-        }
-      ],
-      "environment": [
-        {
-          "name": "FREESWITCH_CONFIG_S3_PATH",
-          "value": "s3://somlengsecrets/freeswitch/conf"
-        }
-      ],
-      "dockerLabels": {
-        "org.somleng.freeswitch.recordings.s3-path": "s3://somleng-recordings/recordings",
-        "org.somleng.freeswitch.recordings.container-path": "/freeswitch-recordings"
-      }
+      ]
     }
   ]
 }
