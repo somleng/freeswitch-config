@@ -17,6 +17,7 @@ after_success:
 - docker push somleng/somleng-freeswitch
 deploy:
 - provider: elasticbeanstalk
+  region: ap-southeast-1
   app: somleng-freeswitch
   env: somleng-freeswitch-webserver
   bucket_name: deploy.somleng.org
