@@ -1,22 +1,24 @@
 env:
   global:
-    - AWS_REGION=ap-southeast-1
-    - secure: "nhEhwYD3/BAn+gxb3quzyrCZSR0O6bdX+2Ma3wK6+utYAWRIjB9W1quO47WHsX3QkIdvQh7i9yOs6iwcDim0WFVla+498o70YjpS3ALRFX4cBxDlL/A28iSOiyqN1yPesbVo1JyCQzVNHTY2TbcXRU8THELCenqYZ97tysszF7m+ZAenCHIVY9eaoLBg1vDOl9jpyMOe8SAOJ3msNM0E+I0aCDVRodEWw1X+43uVdePCM3qtZq8sG2zYX5RlQNCxC5WjN8UOFDlOKXZMYoVZxkhH+0YxSyzkTUGnHFPXLMh+3VxiKDo9t7pjGGimmqn0yGmdv+chZDsDaSm99BwOHXUWsepkxBybpswufQua6L6tpnZ0mXomfzjez6ooNhWtm1VXtX4V5pCtIofwHnvL27kugwb1n9bo6lWx96xvvxFVbCidluI9MzYnwtWBg00RmiAeqdBbWHL+74RsUqG0RWIEUWAS8vY5JgWpM3AeY+nJyHkHqgSNkHyN3hO9IcMqCMENefqTOgVRJ3Bdp70hbyU1wfTNe8UbljYihBHMBKL7I+zxs7U2irQQIuRaim/JG14D2/0RBjcAjJ0JfNIWDhCKfWJwR88EYCM5YujtoQ/8cNRihLlKwxRu9Fju7tGR4lSKO+TJQC0yYc8GFSSdAt9C+iGonlThCGYjQ3AE7PY="
-
+  - AWS_REGION=ap-southeast-1
+  # AWS Credentials
+  - secure: nhEhwYD3/BAn+gxb3quzyrCZSR0O6bdX+2Ma3wK6+utYAWRIjB9W1quO47WHsX3QkIdvQh7i9yOs6iwcDim0WFVla+498o70YjpS3ALRFX4cBxDlL/A28iSOiyqN1yPesbVo1JyCQzVNHTY2TbcXRU8THELCenqYZ97tysszF7m+ZAenCHIVY9eaoLBg1vDOl9jpyMOe8SAOJ3msNM0E+I0aCDVRodEWw1X+43uVdePCM3qtZq8sG2zYX5RlQNCxC5WjN8UOFDlOKXZMYoVZxkhH+0YxSyzkTUGnHFPXLMh+3VxiKDo9t7pjGGimmqn0yGmdv+chZDsDaSm99BwOHXUWsepkxBybpswufQua6L6tpnZ0mXomfzjez6ooNhWtm1VXtX4V5pCtIofwHnvL27kugwb1n9bo6lWx96xvvxFVbCidluI9MzYnwtWBg00RmiAeqdBbWHL+74RsUqG0RWIEUWAS8vY5JgWpM3AeY+nJyHkHqgSNkHyN3hO9IcMqCMENefqTOgVRJ3Bdp70hbyU1wfTNe8UbljYihBHMBKL7I+zxs7U2irQQIuRaim/JG14D2/0RBjcAjJ0JfNIWDhCKfWJwR88EYCM5YujtoQ/8cNRihLlKwxRu9Fju7tGR4lSKO+TJQC0yYc8GFSSdAt9C+iGonlThCGYjQ3AE7PY=
+  # Docker Credentials
+  - secure: fv4NBjnTI4Q0/tSPe82GVoHGfHhdeDVTpEPVISTNPEFDEy9VCHyBsXZsWduB+TI6YgcBIpkZ1KbDGpbRFVVe+Dnq9FO6m69t/3Ak1+H0sjGQjI2MYna2/l3wBaRiTSll5mfZaHGi8/Lwu7+lhWmP5DmV5Be6qqh5qC39S3+MgtcKtc7QNwT0tKqxcpPS031TuACo83g5qamPArHzT1UNclT3YktmGXLCImygLrzkBNrsC/uB7l3birOTT8Ke8vUnIYw0LdiBq+PKYNJRCseLZU8PuvdfnVHtmyTca840tSVELW9prdBNl9Lb3Anbkedqpbx1u/QGYauyERLz1rrIEK9F0pmralLfmKVikXXjwXdLz6S8WM2vkf2TW7f2H6RiMZYdFsZsalVFBkS2AJqZ+vYqgH6qxUWDUo4Z9KIIll5uSwLr+UB67gLywRgKM/fA7zdQyYO/XEjUrB9M/YPfJ9lbCr14ynWpmTk/u0sE01P7JO+8bzcmhOHRmoo4PCRj/ulTNu7OY6uSgn99u+3oahjAVzeWVjpYibFUVeDPA9+OdgDrASEEKGTQ3Q6Ol6/RwRlEV54y3fvJUIt4lB2P97UMPF0TmNa/VSAZIpjFiSALWWxNab136D97lcrcCjLy/RZ+171ZSI/CRJQ4IzFicF+zRrRxmA1Xstx8Cu8XIPo=
 services:
-  - docker
-
+- docker
 before_install:
-  - docker build -t somleng/somleng-freeswitch .
-
+- docker build -t somleng/somleng-freeswitch .
 script:
-  - docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
-
+- docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
+after_success:
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker build -t somleng/somleng-freeswitch:latest .
+- docker push somleng/somleng-freeswitch
 deploy:
 - provider: elasticbeanstalk
   app: somleng-freeswitch
   env: somleng-freeswitch-webserver
   bucket_name: deploy.somleng.org
   on:
-    repo: somleng/freeswitch-config
     branch: master
