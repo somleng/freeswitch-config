@@ -31,5 +31,6 @@
 
     <!-- TTS -->
     <load module="mod_flite"/>
+    <load module="mod_tts_commandline"/>
   </modules>
 </configuration>
