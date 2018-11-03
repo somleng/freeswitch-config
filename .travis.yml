@@ -1,3 +1,8 @@
+env:
+  global:
+    - AWS_REGION=ap-southeast-1
+    - secure: "nhEhwYD3/BAn+gxb3quzyrCZSR0O6bdX+2Ma3wK6+utYAWRIjB9W1quO47WHsX3QkIdvQh7i9yOs6iwcDim0WFVla+498o70YjpS3ALRFX4cBxDlL/A28iSOiyqN1yPesbVo1JyCQzVNHTY2TbcXRU8THELCenqYZ97tysszF7m+ZAenCHIVY9eaoLBg1vDOl9jpyMOe8SAOJ3msNM0E+I0aCDVRodEWw1X+43uVdePCM3qtZq8sG2zYX5RlQNCxC5WjN8UOFDlOKXZMYoVZxkhH+0YxSyzkTUGnHFPXLMh+3VxiKDo9t7pjGGimmqn0yGmdv+chZDsDaSm99BwOHXUWsepkxBybpswufQua6L6tpnZ0mXomfzjez6ooNhWtm1VXtX4V5pCtIofwHnvL27kugwb1n9bo6lWx96xvvxFVbCidluI9MzYnwtWBg00RmiAeqdBbWHL+74RsUqG0RWIEUWAS8vY5JgWpM3AeY+nJyHkHqgSNkHyN3hO9IcMqCMENefqTOgVRJ3Bdp70hbyU1wfTNe8UbljYihBHMBKL7I+zxs7U2irQQIuRaim/JG14D2/0RBjcAjJ0JfNIWDhCKfWJwR88EYCM5YujtoQ/8cNRihLlKwxRu9Fju7tGR4lSKO+TJQC0yYc8GFSSdAt9C+iGonlThCGYjQ3AE7PY="
+
 services:
   - docker
 
@@ -9,7 +14,6 @@ script:
 
 deploy:
 - provider: elasticbeanstalk
-  region: "ap-southeast-1"
   app: somleng-freeswitch
   env: somleng-freeswitch-webserver
   bucket_name: deploy.somleng.org
