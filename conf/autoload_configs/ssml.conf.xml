@@ -1,10 +1,7 @@
 <configuration name="ssml.conf" description="SSML parser config">
   <!-- voices in order of preference -->
   <tts-voices>
-    <voice name="slt" language="en-US" gender="female" prefix="tts://flite|slt|"/>
-    <voice name="kal" language="en-US" gender="male" prefix="tts://flite|kal|"/>
-    <voice name="rms" language="en-US" gender="male" prefix="tts://flite|rms|"/>
-    <voice name="awb" language="en-US" gender="male" prefix="tts://flite|awb|"/>
+    <voice name="kal" language="en-US" gender="male" prefix="tts://tts_commandline|kal|"/>
   </tts-voices>
 
   <!-- maps ISO language to say module -->

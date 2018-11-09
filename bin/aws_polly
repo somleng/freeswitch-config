@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+text="$1"
+file="$2"
+
+aws polly synthesize-speech --region ap-southeast-1 --output-format mp3 --voice-id Joanna --text "$text" "$file.mp3"
+mpg123 -w "$file" "$file.mp3"
