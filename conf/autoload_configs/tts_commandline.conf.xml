@@ -10,5 +10,7 @@
       Example commands can be found at:
       http://wiki.freeswitch.org/wiki/Mod_tts_commandline#Example_commands
     -->
+
+    <param name="command" value="echo hello_world"/>
   </settings>
 </configuration>
