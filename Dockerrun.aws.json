@@ -5,7 +5,7 @@
       "name": "freeswitch",
       "image": "somleng/somleng-freeswitch",
       "essential": true,
-      "memory": 750,
+      "memoryReservation": 750,
       "portMappings": [
         {
           "hostPort": 5222,
@@ -17,7 +17,15 @@
           "containerPort": 5060,
           "protocol": "udp"
         }
-      ]
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": true,
+          "awslogs-group": "/aws/elasticbeanstalk/somleng-freeswitch-webserver/freeswitch.log",
+          "awslogs-region": "ap-southeast-1"
+        }
+      }
     }
   ]
 }
