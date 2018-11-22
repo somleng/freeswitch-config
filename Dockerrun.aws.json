@@ -21,7 +21,8 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/elasticbeanstalk/somleng-freeswitch-webserver/var/log/containers/freeswitch.log",
+          "awslogs-create-group": true,
+          "awslogs-group": "/aws/elasticbeanstalk/somleng-freeswitch-webserver/freeswitch.log",
           "awslogs-region": "ap-southeast-1",
           "awslogs-stream-prefix": "awslogs-freeswitch"
         }
