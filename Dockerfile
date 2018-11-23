@@ -1,5 +1,8 @@
 FROM somleng/docker-freeswitch:latest
 
+# Install jq for parsing JSON
+RUN apt-get update && apt-get -y install jq
+
 # Install the AWS CLI
 RUN apt-get update && \
     apt-get -y install python python-dev curl unzip && cd /tmp && \
@@ -20,8 +23,8 @@ RUN apt-get update && apt-get install -y mpg123
 # Copy the Freeswitch configuration
 COPY conf /etc/freeswitch
 
-# For AWS TTS
-COPY bin/aws_polly /usr/local/bin
+# Copy Bin Files
+COPY bin/ /usr/local/bin/
 
 RUN chown -R freeswitch:daemon /etc/freeswitch
 
