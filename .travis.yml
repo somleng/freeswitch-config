@@ -27,3 +27,10 @@ deploy:
   bucket_name: deploy.somleng.org
   on:
     branch: master
+- provider: elasticbeanstalk
+  region: ap-southeast-1
+  app: somleng-freeswitch
+  env: somleng-freeswitch-simulator-webserver
+  bucket_name: deploy.somleng.org
+  on:
+    branch: simulator

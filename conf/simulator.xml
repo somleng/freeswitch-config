@@ -1,0 +1,22 @@
+<include>
+  <context name="default">
+    <extension name="simulator">
+      <condition regex="any" break="on-true">
+        <regex field="destination_number" expression="7$"/>
+        <action application="hangup" data="NO_ROUTE_DESTINATION" />
+      </condition>
+      <condition regex="any" break="on-true">
+        <regex field="destination_number" expression="8$"/>
+        <action application="hangup" data="USER_BUSY" />
+      </condition>
+      <condition regex="any" break="on-true">
+        <regex field="destination_number" expression="9$"/>
+        <action application="hangup" data="NO_ANSWER" />
+      </condition>
+      <condition>
+        <action application="answer"/>
+        <action application="sleep" data="3000"/>
+      </condition>
+    </extension>
+  </context>
+</include>
