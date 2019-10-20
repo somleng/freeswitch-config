@@ -30,11 +30,4 @@ workflows:
   build-deploy:
     jobs:
       - build_freeswitch:
-          context: Somleng
-      - deploy_production:
-          context: Somleng
-          requires:
-            - build_freeswitch
-          filters:
-            branches:
-              only: master
+        context: Somleng
