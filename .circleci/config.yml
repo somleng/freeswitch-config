@@ -10,7 +10,10 @@ jobs:
   build:
     executor:
       name: build_environment
-      steps:
+
+    working_directory: ~/build_freeswitch
+
+    steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
