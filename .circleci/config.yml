@@ -10,21 +10,20 @@ jobs:
   build:
     executor:
       name: build_environment
-
       steps:
-        - checkout
-        - setup_remote_docker:
-            docker_layer_caching: true
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
 
-        - run:
-            name: Build Image
-            command: |
-                docker build -t somleng/somleng-freeswitch .
+      - run:
+          name: Build Image
+          command: |
+              docker build -t somleng/somleng-freeswitch .
 
-        - run:
-            name: Check Version
-            command: |
-                docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
+      - run:
+          name: Check Version
+          command: |
+              docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
 
 workflows:
   version: 2
