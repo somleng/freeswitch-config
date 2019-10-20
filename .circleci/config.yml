@@ -28,9 +28,10 @@ jobs:
               docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
 
       - run: |
-          name: Push to Image
+          name: Push Image
           command: |
               if [ "$CIRCLE_BRANCH" = "upgrade_freeswitch" ]; then
+                  echo "HERE"
                   docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
                   docker build -t somleng/somleng-freeswitch:latest "$CIRCLE_REPOSITORY_URL#$CIRCLE_BRANCH"
               fi
