@@ -29,10 +29,11 @@ jobs:
 
       - run: |
           name: Push to Image
-            if [ "$CIRCLE_BRANCH" = "master" ]; then
-                docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-                docker build -t somleng/somleng-freeswitch:latest "$CIRCLE_REPOSITORY_URL#$CIRCLE_BRANCH"
-            fi
+          command: |
+              if [ "$CIRCLE_BRANCH" = "upgrade_freeswitch" ]; then
+                  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                  docker build -t somleng/somleng-freeswitch:latest "$CIRCLE_REPOSITORY_URL#$CIRCLE_BRANCH"
+              fi
 
 workflows:
   version: 2
