@@ -25,12 +25,6 @@ jobs:
           command: |
               docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
 
-  deploy_production:
-    working_directory: ~/freeswitch
-
-    executor:
-      name: build_environment
-
 workflows:
   version: 2
   build-deploy:
