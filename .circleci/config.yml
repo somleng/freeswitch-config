@@ -1,0 +1,46 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@0.1.15
+executors:
+  build_environment:
+    docker:
+      - image: circleci/buildpack-deps:buster
+
+jobs:
+  build_freeswitch:
+    working_directory: ~/freeswitch
+    executor:
+      name: build_environment
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build Image
+          command: |
+              docker build -t somleng/somleng-freeswitch .
+
+      - run:
+          name: Check Version
+          command: |
+              docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
+
+  deploy_production:
+    working_directory: ~/freeswitch
+
+    executor:
+      name: build_environment
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build_freeswitch:
+          context: Somleng
+      - deploy_production:
+          context: Somleng
+          requires:
+            - build_freeswitch
+          filters:
+            branches:
+              only: master
