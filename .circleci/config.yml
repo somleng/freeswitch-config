@@ -27,6 +27,13 @@ jobs:
           command: |
               docker run --rm somleng/somleng-freeswitch /usr/bin/freeswitch -version
 
+      - run: |
+          name: Push to Image
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+                docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+                docker build -t somleng/somleng-freeswitch:latest "$CIRCLE_REPOSITORY_URL#$CIRCLE_BRANCH"
+            fi
+
 workflows:
   version: 2
   build-deploy:
