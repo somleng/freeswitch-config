@@ -6,7 +6,6 @@
       "image": "somleng/somleng-freeswitch",
       "essential": true,
       "memoryReservation": 8192,
-      "cpu": 16384,
       "portMappings": [
         {
           "hostPort": 5222,
