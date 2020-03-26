@@ -5,7 +5,7 @@
       "name": "freeswitch",
       "image": "somleng/somleng-freeswitch",
       "essential": true,
-      "memoryReservation": 8192,
+      "memoryReservation": 4096,
       "portMappings": [
         {
           "hostPort": 5222,
