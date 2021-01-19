@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Push Image
           command: |
-              if [ "$CIRCLE_BRANCH" = "master" ]; then
+              if [ "$CIRCLE_BRANCH" = "fix_polly" ]; then
                   echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
                   docker build -t somleng/somleng-freeswitch:latest "$CIRCLE_REPOSITORY_URL#$CIRCLE_BRANCH"
                   docker push somleng/somleng-freeswitch
@@ -86,4 +86,4 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: fix_polly

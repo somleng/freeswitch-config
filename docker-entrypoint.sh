@@ -16,10 +16,6 @@ if [ "$1" = 'freeswitch' ]; then
   export_fs_env_vars "$FREESWITCH_CONTAINER_CONFIG_DIRECTORY/env.xml"
   export_aws_polly_voices "$FREESWITCH_CONTAINER_CONFIG_DIRECTORY/autoload_configs/polly_voices.xml"
 
-  if [ "$FS_SIMULATOR" = 'true' ]; then
-    cp "$FREESWITCH_CONTAINER_CONFIG_DIRECTORY/simulator.xml" "$FREESWITCH_CONTAINER_CONFIG_DIRECTORY/dialplan.xml"
-  fi
-
   # Setup recordings directory
   mkdir -p ${FS_MOD_RAYO_RECORD_FILE_PREFIX}
   chown -R "${FREESWITCH_USER}:${FREESWITCH_GROUP}" ${FS_MOD_RAYO_RECORD_FILE_PREFIX}
