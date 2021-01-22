@@ -4,13 +4,6 @@ text="$1"
 file="$2"
 voice="$3"
 
-echo "-------------------"
-echo "Executing Cloud TTS"
-echo "Args: $@"
-echo "Text: $text, File: $file, Voice: $voice"
-echo "aws_polly \"$text\" \"$file\" \"${voice#\"Polly.\"}\""
-echo "--------------------"
-
 if [[ "$voice" =~ ^Polly\..+ ]]; then
   # extract Polly.from voice and execute aws_polly
   aws_polly "$text" "$file" "${voice#"Polly."}"
