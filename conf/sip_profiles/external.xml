@@ -13,8 +13,8 @@
     <param name="ext-rtp-ip" value="$${external_ip}"/>
 
     <param name="bind-params" value="transport=udp"/>
-    <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
-    <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
+    <param name="inbound-codec-prefs" value="G722,PCMU,PCMA,GSM"/>
+    <param name="outbound-codec-prefs" value="G722,PCMU,PCMA,GSM"/>
 
     <param name="context" value="default"/>
     <param name="disable-register" value="true"/>

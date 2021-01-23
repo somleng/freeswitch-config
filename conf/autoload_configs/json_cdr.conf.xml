@@ -2,9 +2,9 @@
 <configuration name="json_cdr.conf" description="JSON CDR">
   <settings>
     <param name="url" value="$${mod_json_cdr_url}"/>
-    <param name="auth-scheme" value="$${mod_json_cdr_auth_scheme}"/>
-    <param name="cred" value="$${mod_json_cdr_cred}"/>
-    <param name="retries" value="$${mod_json_cdr_retries}"/>
-    <param name="delay" value="$${mod_json_cdr_delay}"/>
+    <param name="cred" value="services:$${mod_json_cdr_password}"/>
+    <param name="auth-scheme" value="basic"/>
+    <param name="retries" value="10"/>
+    <param name="delay" value="5000"/>
   </settings>
 </configuration>

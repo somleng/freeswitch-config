@@ -6,6 +6,6 @@
   </mappings>
   <settings>
     <param name="colorize" value="true"/>
-    <param name="loglevel" value="$${console_loglevel}"/>
+    <param name="loglevel" value="notice"/>
   </settings>
 </configuration>

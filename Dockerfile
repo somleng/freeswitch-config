@@ -1,7 +1,7 @@
 FROM somleng/docker-freeswitch:latest
 
 # Install jq for parsing JSON
-RUN apt-get update && apt-get -y install jq
+RUN apt-get update && apt-get -y install jq libpq-dev
 
 # Install the AWS CLI
 RUN apt-get update && \
@@ -14,7 +14,7 @@ RUN apt-get update && \
     && apt-get purge -y --auto-remove curl unzip
 
 # Install required freeswitch modules
-RUN apt-get update && apt-get install -y freeswitch-mod-console freeswitch-mod-logfile freeswitch-mod-event-socket freeswitch-mod-rayo freeswitch-mod-sofia freeswitch-mod-dialplan-xml freeswitch-mod-commands freeswitch-mod-dptools freeswitch-mod-http-cache freeswitch-mod-httapi freeswitch-mod-sndfile freeswitch-mod-native-file freeswitch-mod-shout freeswitch-mod-json-cdr freeswitch-mod-flite freeswitch-mod-tone-stream freeswitch-mod-tts-commandline \
+RUN apt-get update && apt-get install -y freeswitch-mod-console freeswitch-mod-logfile freeswitch-mod-rayo freeswitch-mod-sofia freeswitch-mod-dialplan-xml freeswitch-mod-commands freeswitch-mod-dptools freeswitch-mod-http-cache freeswitch-mod-httapi freeswitch-mod-sndfile freeswitch-mod-native-file freeswitch-mod-shout freeswitch-mod-json-cdr freeswitch-mod-flite freeswitch-mod-tone-stream freeswitch-mod-tts-commandline freeswitch-mod-pgsql \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Convert mp3 to wav
