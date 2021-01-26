@@ -12,6 +12,7 @@ data "template_file" "appserver_container_definitions" {
     app_environment = var.app_environment
     database_password_parameter_arn = var.db_password_parameter_arn
     rayo_password_parameter_arn = aws_ssm_parameter.rayo_password.arn
+    json_cdr_url = var.json_cdr_url
     json_cdr_password_parameter_arn = var.json_cdr_password_parameter_arn
     database_name = "freeswitch"
     database_username = var.db_username

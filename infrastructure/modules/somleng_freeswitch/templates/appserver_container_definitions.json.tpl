@@ -28,11 +28,11 @@
     ],
     "portMappings": [
       {
-        "containerPort": ${rayo_port}
+        "containerPort": ${rayo_port},
         "protocol": "tcp"
       },
       {
-        "containerPort": ${sip_port}
+        "containerPort": ${sip_port},
         "protocol": "udp"
       }
     ],

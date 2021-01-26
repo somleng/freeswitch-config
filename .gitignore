@@ -10,3 +10,9 @@ logs
 # Ruby test files
 test/vendor/ruby
 test/.bundle
+
+# terraform
+terraform.tfstate.d/
+.terraform
+terraform.tfstate
+terraform.tfstate.*

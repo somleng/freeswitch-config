@@ -39,6 +39,7 @@ variable "json_cdr_password_parameter_arn" {}
 variable "rayo_user" {}
 variable "rayo_host" {}
 variable "external_ip" {}
+variable "json_cdr_url" {}
 
 variable "enable_dashboard" {
   default = false

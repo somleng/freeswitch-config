@@ -26,6 +26,7 @@ module "somleng_freeswitch" {
   external_ip = data.terraform_remote_state.core_infrastructure.outputs.vpc.nat_public_ips[0]
   rayo_user = "rayo"
   rayo_host = "rayo.somleng.org"
+  json_cdr_url = "https://twilreapi.somleng.org/services/call_data_records"
 
   ecs_appserver_autoscale_min_instances = 1
 }
