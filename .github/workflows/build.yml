@@ -47,7 +47,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: deploy/production/appserver_task_definition.json
-          container-name: app
+          container-name: somleng-freeswitch
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy App
