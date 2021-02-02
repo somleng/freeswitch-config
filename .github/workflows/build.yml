@@ -32,7 +32,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: issuing-switch
+          ECR_REPOSITORY: somleng-freeswitch
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Build a docker container and
@@ -46,7 +46,7 @@ jobs:
         id: render-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: modules/issuing-switch/deploy/production/app_task_definition.json
+          task-definition: deploy/production/app_task_definition.json
           container-name: app
           image: ${{ steps.build-image.outputs.image }}
 
