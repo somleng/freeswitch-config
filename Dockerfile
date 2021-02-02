@@ -1,7 +1,7 @@
 FROM somleng/docker-freeswitch:latest
 
 # Install jq for parsing JSON
-RUN apt-get update && apt-get -y install jq libpq-dev glibc groff less
+RUN apt-get update && apt-get -y install jq libpq-dev libc-dev groff less
 
 # Install the AWS CLI
 RUN apt-get -y install curl unzip && \
