@@ -64,17 +64,17 @@ resource "aws_ecs_service" "appserver" {
     security_groups = [aws_security_group.appserver.id]
   }
 
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.rayo.arn
-  #   container_name   = var.app_identifier
-  #   container_port   = var.rayo_port
-  # }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.rayo.arn
+    container_name   = var.app_identifier
+    container_port   = var.rayo_port
+  }
 
-  # load_balancer {
-  #   target_group_arn = aws_lb_target_group.sip.arn
-  #   container_name   = var.app_identifier
-  #   container_port   = var.sip_port
-  # }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.sip.arn
+    container_name   = var.app_identifier
+    container_port   = var.sip_port
+  }
 
   lifecycle {
     ignore_changes = [load_balancer, task_definition]

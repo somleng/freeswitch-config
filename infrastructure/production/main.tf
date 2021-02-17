@@ -29,4 +29,6 @@ module "somleng_freeswitch" {
   json_cdr_url = "https://twilreapi.somleng.org/services/call_data_records"
 
   ecs_appserver_autoscale_min_instances = 1
+  rayo_port = 5223
+  sip_port = 5080
 }
