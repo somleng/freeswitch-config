@@ -12,24 +12,13 @@ resource "aws_security_group_rule" "appserver_egress" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "orange_sierra_leone" {
+resource "aws_security_group_rule" "rayo" {
   type        = "ingress"
-  from_port   = 5060
-  to_port     = 5060
-  protocol    = "udp"
-  cidr_blocks = ["197.215.105.30/32"]
-  description = "Orange Sierra Leone"
-
-  security_group_id = aws_security_group.appserver.id
-}
-
-resource "aws_security_group_rule" "hormuud_somalia" {
-  type        = "ingress"
-  from_port   = 5060
-  to_port     = 5060
-  protocol    = "udp"
-  cidr_blocks = ["41.78.73.242/32"]
-  description = "Hormuud Somalia"
+  from_port   = 5222
+  to_port     = 5222
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  description = "Rayo"
 
   security_group_id = aws_security_group.appserver.id
 }
@@ -74,17 +63,6 @@ resource "aws_security_group_rule" "c3ntro_mexico" {
   protocol    = "udp"
   cidr_blocks = ["200.0.90.35/32"]
   description = "c3ntro Mexico"
-
-  security_group_id = aws_security_group.appserver.id
-}
-
-resource "aws_security_group_rule" "bongloy_office" {
-  type        = "ingress"
-  from_port   = 5060
-  to_port     = 5060
-  protocol    = "udp"
-  cidr_blocks = ["96.9.66.131/32"]
-  description = "Bongloy Office"
 
   security_group_id = aws_security_group.appserver.id
 }
