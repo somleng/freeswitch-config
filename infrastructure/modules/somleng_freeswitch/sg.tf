@@ -3,6 +3,18 @@ resource "aws_security_group" "appserver" {
   vpc_id = var.vpc_id
 }
 
+resource "aws_security_group" "rayo" {
+  name   = "${var.app_identifier}-rayo"
+  vpc_id = var.vpc_id
+
+  ingress {
+    from_port = 5222
+    to_port   = 5222
+    protocol  = "TCP"
+    self      = true
+  }
+}
+
 resource "aws_security_group_rule" "appserver_egress" {
   type              = "egress"
   to_port           = 0
@@ -10,17 +22,6 @@ resource "aws_security_group_rule" "appserver_egress" {
   from_port         = 0
   security_group_id = aws_security_group.appserver.id
   cidr_blocks = ["0.0.0.0/0"]
-}
-
-resource "aws_security_group_rule" "rayo" {
-  type        = "ingress"
-  from_port   = 5222
-  to_port     = 5222
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  description = "Rayo"
-
-  security_group_id = aws_security_group.appserver.id
 }
 
 resource "aws_security_group_rule" "smart_cambodia" {
