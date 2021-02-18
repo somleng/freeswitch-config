@@ -77,6 +77,6 @@ resource "aws_ecs_service" "appserver" {
   }
 
   lifecycle {
-    ignore_changes = [load_balancer, task_definition]
+    ignore_changes = [task_definition]
   }
 }
