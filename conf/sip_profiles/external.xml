@@ -6,6 +6,9 @@
   </gateways>
 
   <settings>
+    <!-- <param name="sip-trace" value="yes"/> -->
+    <param name="sip-trace" value="yes"/>
+
     <param name="sip-ip" value="$${local_ip_v4}"/>
     <param name="rtp-ip" value="$${local_ip_v4}"/>
 
