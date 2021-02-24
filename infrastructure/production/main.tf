@@ -30,4 +30,5 @@ module "somleng_freeswitch" {
   json_cdr_url = "https://twilreapi.somleng.org/services/call_data_records"
 
   ecs_appserver_autoscale_min_instances = 1
+  platform_version = "1.4.0"
 }

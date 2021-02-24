@@ -8,6 +8,9 @@ variable "aws_region" {}
 variable "container_instance_subnets" {}
 variable "vpc_id" {}
 variable "load_balancer_arn" {}
+variable "platform_version" {
+  default = "LATEST"
+}
 
 variable "rayo_port" {
   default = 5222

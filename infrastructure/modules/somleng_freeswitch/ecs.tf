@@ -59,6 +59,7 @@ resource "aws_ecs_service" "appserver" {
   task_definition = aws_ecs_task_definition.appserver.arn
   desired_count   = var.ecs_appserver_autoscale_min_instances
   launch_type = var.launch_type
+  platform_version = var.platform_version
 
   network_configuration {
     subnets = var.container_instance_subnets
