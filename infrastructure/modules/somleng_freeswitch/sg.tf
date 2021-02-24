@@ -61,7 +61,7 @@ resource "aws_security_group_rule" "c3ntro_mexico" {
   from_port   = var.sip_port
   to_port     = var.sip_port
   protocol    = "udp"
-  cidr_blocks = ["200.0.90.35/32"]
+  cidr_blocks = ["200.0.90.35/32", "200.0.90.41/32"]
   description = "c3ntro Mexico"
 
   security_group_id = aws_security_group.appserver.id
