@@ -58,8 +58,12 @@
         "value": "${database_port}"
       },
       {
-        "name": "FS_EXTERNAL_IP",
-        "value": "${external_ip}"
+        "name": "FS_EXTERNAL_SIP_IP",
+        "value": "${external_sip_ip}"
+      },
+      {
+        "name": "FS_EXTERNAL_RTP_IP",
+        "value": "${external_rtp_ip}"
       },
       {
         "name": "FS_MOD_RAYO_PORT",

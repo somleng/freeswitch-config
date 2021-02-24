@@ -38,7 +38,8 @@ variable "db_password_parameter_arn" {}
 variable "json_cdr_password_parameter_arn" {}
 variable "rayo_user" {}
 variable "rayo_host" {}
-variable "external_ip" {}
+variable "external_sip_ip" {}
+variable "external_rtp_ip" {}
 variable "json_cdr_url" {}
 
 variable "enable_dashboard" {

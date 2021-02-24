@@ -18,7 +18,8 @@ data "template_file" "appserver_container_definitions" {
     database_username = var.db_username
     database_host = var.db_host
     database_port = var.db_port
-    external_ip = var.external_ip
+    external_sip_ip = var.external_sip_ip
+    external_rtp_ip = var.external_rtp_ip
     rayo_host = var.rayo_host
     rayo_user = var.rayo_user
   }
