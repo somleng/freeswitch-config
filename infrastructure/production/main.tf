@@ -24,8 +24,7 @@ module "somleng_freeswitch" {
   db_port = data.terraform_remote_state.core_infrastructure.outputs.db.this_rds_cluster_port
   db_security_group = data.terraform_remote_state.core_infrastructure.outputs.db_security_group.id
   external_sip_ip = data.terraform_remote_state.core_infrastructure.outputs.nlb_eips[0].public_ip
-  external_rtp_ip = data.terraform_remote_state.core_infrastructure.outputs.nlb_eips[0].public_ip
-  # external_rtp_ip = data.terraform_remote_state.core_infrastructure.outputs.vpc.nat_public_ips[0]
+  external_rtp_ip = data.terraform_remote_state.core_infrastructure.outputs.vpc.nat_public_ips[0]
   rayo_user = "rayo"
   rayo_host = "rayo.somleng.org"
   json_cdr_url = "https://twilreapi.somleng.org/services/call_data_records"
