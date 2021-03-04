@@ -34,6 +34,8 @@ resource "aws_lb_listener" "sip" {
   load_balancer_arn = var.load_balancer_arn
   port              = var.sip_port
   protocol          = "UDP"
+  # https://github.com/hashicorp/terraform-provider-aws/issues/17227
+  # connection_termination = true
 
   default_action {
     type = "forward"
