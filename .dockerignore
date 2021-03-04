@@ -1,0 +1,11 @@
+.git
+.github
+.bundle
+coverage
+docs
+docker
+infrastructure
+log
+spec
+tmp
+vendor/bundle

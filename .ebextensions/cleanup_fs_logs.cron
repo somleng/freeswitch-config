@@ -1,2 +1,0 @@
-# The newline at the end of this file is extremely important.  Cron won't run without it.
-*/10 * * * * root /opt/elasticbeanstalk/bin/cleanup_fs_logs.sh

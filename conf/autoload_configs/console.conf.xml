@@ -5,7 +5,7 @@
     <map name="all" value="console,debug,info,notice,warning,err,crit,alert"/>
   </mappings>
   <settings>
-    <param name="colorize" value="true"/>
-    <param name="loglevel" value="$${console_loglevel}"/>
+    <param name="colorize" value="false"/>
+    <param name="loglevel" value="debug"/>
   </settings>
 </configuration>
