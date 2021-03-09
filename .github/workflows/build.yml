@@ -44,22 +44,33 @@ jobs:
 
       - name: Push Image to Amazon ECR
         env:
-          PRIVATE_IMAGE: ${{ steps.build-image.outputs.private-image }}
+          IMAGE: ${{ steps.build-image.outputs.private-image }}
         run: |
-          docker push $PRIVATE_IMAGE
+          docker push $IMAGE
 
-      - name: Prepare task definition
-        id: render-task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+      - name: Login to Amazon Public ECR
+        uses: docker/login-action@v1
         with:
-          task-definition: deploy/production/appserver_task_definition.json
-          container-name: somleng-freeswitch
-          image: ${{ steps.build-image.outputs.private-image }}
+          registry: public.ecr.aws/somleng
 
-      - name: Deploy App
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.render-task-def.outputs.task-definition }}
-          service: somleng-freeswitch
-          cluster: somleng
-          wait-for-service-stability: true
+      - name: Push Image to Amazon Public ECR
+        env:
+          IMAGE: ${{ steps.build-image.outputs.public-image }}
+        run: |
+          docker push $IMAGE
+
+      # - name: Prepare task definition
+      #   id: render-task-def
+      #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+      #   with:
+      #     task-definition: deploy/production/appserver_task_definition.json
+      #     container-name: somleng-freeswitch
+      #     image: ${{ steps.build-image.outputs.private-image }}
+
+      # - name: Deploy App
+      #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      #   with:
+      #     task-definition: ${{ steps.render-task-def.outputs.task-definition }}
+      #     service: somleng-freeswitch
+      #     cluster: somleng
+      #     wait-for-service-stability: true
