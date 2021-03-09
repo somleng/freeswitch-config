@@ -48,16 +48,12 @@ jobs:
         run: |
           docker push $IMAGE
 
-      - name: Login to Amazon Public ECR
-        uses: docker/login-action@v1
-        with:
-          registry: public.ecr.aws/somleng
-
       - name: Push Image to Amazon Public ECR
         env:
           IMAGE: ${{ steps.build-image.outputs.public-image }}
           AWS_REGION: us-east-1
         run: |
+          aws ecr-public get-login-password | docker login --username AWS --password-stdin public.ecr.aws
           docker push $IMAGE
 
       # - name: Prepare task definition
