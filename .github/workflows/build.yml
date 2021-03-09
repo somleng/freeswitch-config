@@ -33,9 +33,6 @@ jobs:
           ECR_REPOSITORY: somleng-freeswitch
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest .
           echo "::set-output name=private-image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           echo "::set-output name=public-image::$ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest"
@@ -46,7 +43,6 @@ jobs:
           registry: ${{ steps.aws-login.outputs.aws-account-id }}.dkr.ecr.ap-southeast-1.amazonaws.com
 
       - name: Push Image to Amazon ECR
-        id: build-image
         env:
           PRIVATE_IMAGE: ${{ steps.build-image.outputs.private-image }}
         run: |
