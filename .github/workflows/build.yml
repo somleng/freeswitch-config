@@ -35,16 +35,16 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.aws-login.outputs.aws-account-id }}.dkr.ecr.ap-southeast-1.amazonaws.com
+          ECR_PUBLIC_REGISTRY: public.ecr.aws/somleng
           ECR_REPOSITORY: somleng-freeswitch
-          ECR_PUBLIC_REGISTRY_ALIAS: somleng
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Build a docker container and
           # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY_ALIAS/$ECR_REPOSITORY:latest .
+          # be deployed to ECS
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push public.ecr.aws/$ECR_PUBLIC_REGISTRY_ALIAS/$ECR_REPOSITORY:latest
+          docker push $ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Prepare task definition
