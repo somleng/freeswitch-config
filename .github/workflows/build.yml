@@ -33,11 +33,11 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --region us-east-1 --query 'registries[0].registryUri')
-          docker build -t $REPOSITORY .
-          docker tag $REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
-          docker tag $REPOSITORY:latest $ECR_PUBLIC_REGISTRY/$REPOSITORY:latest
-          echo "::set-output name=private-image::$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
-          echo "::set-output name=public-image::$ECR_PUBLIC_REGISTRY/$REPOSITORY:latest"
+          PRIVATE_IMAGE="$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
+          PUBLIC_IMAGE="$ECR_PUBLIC_REGISTRY/$REPOSITORY:latest"
+          docker build -t $PRIVATE_IMAGE -t $PUBLIC_IMAGE .
+          echo "::set-output name=private-image::$PRIVATE_IMAGE"
+          echo "::set-output name=public-image::$PUBLIC_IMAGE"
 
       - name: Push Image to Amazon ECR
         env:
