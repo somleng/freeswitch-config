@@ -29,13 +29,15 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.aws-login.outputs.aws-account-id }}.dkr.ecr.ap-southeast-1.amazonaws.com
-          ECR_PUBLIC_REGISTRY: public.ecr.aws
-          ECR_REPOSITORY: somleng-freeswitch
+          REPOSITORY: somleng-freeswitch
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest .
-          echo "::set-output name=private-image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          echo "::set-output name=public-image::$ECR_PUBLIC_REGISTRY/$ECR_REPOSITORY:latest"
+          ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --region us-east-1 --query 'registries[0].registryUri')
+          docker build -t $REPOSITORY .
+          docker tag $REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG
+          docker tag $REPOSITORY:latest $ECR_PUBLIC_REGISTRY/$REPOSITORY:latest
+          echo "::set-output name=private-image::$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
+          echo "::set-output name=public-image::$ECR_PUBLIC_REGISTRY/$REPOSITORY:latest"
 
       - name: Push Image to Amazon ECR
         env:
