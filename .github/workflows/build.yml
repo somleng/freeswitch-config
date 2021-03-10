@@ -32,7 +32,7 @@ jobs:
           REPOSITORY: somleng-freeswitch
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --region us-east-1 --query 'registries[0].registryUri')
+          ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --region us-east-1 --output text --query 'registries[0].registryUri')
           PRIVATE_IMAGE="$ECR_REGISTRY/$REPOSITORY:$IMAGE_TAG"
           PUBLIC_IMAGE="$ECR_PUBLIC_REGISTRY/$REPOSITORY:latest"
           docker build -t $PRIVATE_IMAGE -t $PUBLIC_IMAGE .
