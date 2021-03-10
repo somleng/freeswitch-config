@@ -35,7 +35,7 @@ jobs:
           ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --output text --query 'registries[0].registryUri')
           docker build -t $ECR_PUBLIC_REGISTRY/$REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY/$REPOSITORY:latest .
           aws ecr-public get-login-password | docker login --username AWS --password-stdin public.ecr.aws
-          docker push --all-tags
+          docker push --all-tags $ECR_PUBLIC_REGISTRY/$REPOSITORY
           docker logout
           echo "::set-output name=image::$ECR_PUBLIC_REGISTRY/$REPOSITORY:$IMAGE_TAG"
 
