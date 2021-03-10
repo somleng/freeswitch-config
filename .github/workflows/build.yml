@@ -30,8 +30,9 @@ jobs:
         env:
           REPOSITORY: somleng-freeswitch
           IMAGE_TAG: ${{ github.sha }}
+          AWS_REGION: us-east-1
         run: |
-          ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --region us-east-1 --output text --query 'registries[0].registryUri')
+          ECR_PUBLIC_REGISTRY=$(aws ecr-public describe-registries --output text --query 'registries[0].registryUri')
           docker build -t $ECR_PUBLIC_REGISTRY/$REPOSITORY:$IMAGE_TAG -t $ECR_PUBLIC_REGISTRY/$REPOSITORY:latest .
           aws ecr-public get-login-password | docker login --username AWS --password-stdin public.ecr.aws
           docker push --all-tags
