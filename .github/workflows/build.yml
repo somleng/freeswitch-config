@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - sip_trace
 
 name: Deploy
 
