@@ -4,8 +4,8 @@
     <param name="url" value="$${mod_json_cdr_url}"/>
     <param name="cred" value="services:$${mod_json_cdr_password}"/>
     <param name="auth-scheme" value="basic"/>
-    <param name="retries" value="10"/>
-    <param name="delay" value="5000"/>
+    <param name="retries" value="30"/>
+    <param name="delay" value="60000"/>
     <param name="log-dir" value=""/>
     <param name="rotate" value="false"/>
   </settings>
