@@ -28,6 +28,7 @@ module "somleng_freeswitch" {
   rayo_user = "rayo"
   rayo_host = "rayo.somleng.org"
   json_cdr_url = "https://twilreapi.somleng.org/services/call_data_records"
+  inbound_sip_trunks_security_group_name = "twilreapi-inbound-sip-trunks"
 
   ecs_appserver_autoscale_min_instances = 1
   platform_version = "1.4.0"

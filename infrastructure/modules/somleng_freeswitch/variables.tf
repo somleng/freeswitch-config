@@ -8,6 +8,8 @@ variable "aws_region" {}
 variable "container_instance_subnets" {}
 variable "vpc_id" {}
 variable "load_balancer_arn" {}
+variable "inbound_sip_trunks_security_group_name" {}
+
 variable "platform_version" {
   default = "LATEST"
 }
