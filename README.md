@@ -1,3 +1,5 @@
+⚠️  This FreeSWITCH configuration has been moved to [Somleng Switch](https://github.com/somleng/somleng-switch/tree/develop/docker/freeswitch). ⚠️
+
 # Somleng FreeSWITCH Configuration
 
 [![Build](https://github.com/somleng/freeswitch-config/actions/workflows/build.yml/badge.svg)](https://github.com/somleng/freeswitch-config/actions/workflows/build.yml)
